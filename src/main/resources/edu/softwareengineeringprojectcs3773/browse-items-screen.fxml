@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="1250.0" prefHeight="800.0" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="page">
+    <top>
+        <VBox>
+            <HBox styleClass="header">
+                <Label text="Browse Items" styleClass="header-title" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="homeButton" text="Home" styleClass="nav-button"/>
+                <Button fx:id="cartButton" text="Cart" styleClass="nav-button"/>
+                <Button fx:id="ordersButton" text="Orders" styleClass="nav-button"/>
+            </HBox>
+            <HBox spacing="12.0" alignment="CENTER_LEFT" style="-fx-padding: 16 28 16 28; -fx-background-color: white;">
+                <TextField fx:id="searchField" promptText="Search items..." prefWidth="360.0"/>
+                <ComboBox fx:id="categoryComboBox" promptText="Category" prefWidth="170.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="All Categories"/>
+                            <String fx:value="Apparel"/>
+                            <String fx:value="Technology"/>
+                            <String fx:value="Supplies"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox fx:id="sortComboBox" promptText="Sort by" prefWidth="180.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Price: Low to High"/>
+                            <String fx:value="Price: High to Low"/>
+                            <String fx:value="Availability"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <CheckBox fx:id="availableOnlyCheckBox" text="Available only"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="clearFiltersButton" text="Clear Filters" styleClass="outline-button"/>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true">
+            <content>
+                <FlowPane fx:id="itemsFlowPane" hgap="18.0" vgap="18.0" prefWrapLength="1100.0" styleClass="content">
+                    <VBox prefWidth="250.0" spacing="10.0" styleClass="card">
+                        <StackPane styleClass="product-placeholder"><Label text="Product Image"/></StackPane>
+                        <Label text="UTSA Hoodie" styleClass="section-title"/>
+                        <Label text="Classic navy hoodie with UTSA branding." wrapText="true" styleClass="muted-label"/>
+                        <Label text="" styleClass="price-label"/>
+                        <Label text="In Stock" styleClass="badge"/>
+                        <Button text="View Details" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
+                    </VBox>
+                    <VBox prefWidth="250.0" spacing="10.0" styleClass="card">
+                        <StackPane styleClass="product-placeholder"><Label text="Product Image"/></StackPane>
+                        <Label text="Wireless Mouse" styleClass="section-title"/>
+                        <Label text="Comfortable mouse for work and study." wrapText="true" styleClass="muted-label"/>
+                        <Label text="" styleClass="price-label"/>
+                        <Label text="In Stock" styleClass="badge"/>
+                        <Button text="View Details" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
+                    </VBox>
+                    <VBox prefWidth="250.0" spacing="10.0" styleClass="card">
+                        <StackPane styleClass="product-placeholder"><Label text="Product Image"/></StackPane>
+                        <Label text="Notebook Set" styleClass="section-title"/>
+                        <Label text="Three durable notebooks for class notes." wrapText="true" styleClass="muted-label"/>
+                        <Label text="" styleClass="price-label"/>
+                        <Label text="In Stock" styleClass="badge"/>
+                        <Button text="View Details" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
+                    </VBox>
+                </FlowPane>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>
