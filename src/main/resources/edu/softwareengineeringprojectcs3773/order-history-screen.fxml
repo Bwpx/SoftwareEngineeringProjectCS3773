@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" prefWidth="1200" prefHeight="760" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="app-root">
+  <top>
+    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar">
+      <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
+      <StackPane minWidth="46" minHeight="46" maxWidth="46" maxHeight="46" styleClass="brand-mark"><Label text="UTSA" styleClass="brand-mark-text"/></StackPane>
+      <VBox spacing="2"><Label text="Order History" styleClass="page-title"/><Label text="Roadrunner Marketplace" styleClass="page-subtitle"/></VBox>
+    </HBox>
+  </top>
+  <center>
+    <VBox spacing="18"><padding><Insets top="24" right="24" bottom="24" left="24"/></padding><HBox alignment="CENTER_LEFT" spacing="10" styleClass="card"><Label text="Sort Orders" styleClass="field-label"/><ComboBox fx:id="sortOrdersComboBox" promptText="Order Date or Dollar Amount" prefWidth="260"/><Button fx:id="sortButton" text="Sort" styleClass="primary-button"/><Region HBox.hgrow="ALWAYS"/><Button fx:id="homeButton" text="Home" styleClass="secondary-button"/></HBox><TableView fx:id="ordersTableView" VBox.vgrow="ALWAYS" styleClass="data-table"><columns><TableColumn fx:id="orderNumberColumn" text="Order #" prefWidth="140"/><TableColumn fx:id="orderDateColumn" text="Date" prefWidth="180"/><TableColumn fx:id="orderTotalColumn" text="Total" prefWidth="150"/><TableColumn fx:id="orderStatusColumn" text="Status" prefWidth="170"/><TableColumn fx:id="deliveryColumn" text="Delivery Type" prefWidth="180"/><TableColumn fx:id="viewDetailsColumn" text="Details" prefWidth="160"/></columns></TableView></VBox>
+  </center>
+</BorderPane>
