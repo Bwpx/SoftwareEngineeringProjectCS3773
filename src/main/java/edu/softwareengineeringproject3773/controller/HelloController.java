@@ -1,4 +1,4 @@
-package edu.softwareengineeringprojectcs3773;
+package edu.softwareengineeringproject3773.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
