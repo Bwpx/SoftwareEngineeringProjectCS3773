@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" prefWidth="1200" prefHeight="760" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="app-root">
+  <top>
+    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar">
+      <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
+      <StackPane minWidth="46" minHeight="46" maxWidth="46" maxHeight="46" styleClass="brand-mark"><Label text="UTSA" styleClass="brand-mark-text"/></StackPane>
+      <VBox spacing="2"><Label text="Shopping Cart" styleClass="page-title"/><Label text="Roadrunner Marketplace" styleClass="page-subtitle"/></VBox>
+    </HBox>
+  </top>
+  <center>
+    <VBox spacing="18"><padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+      <TableView fx:id="cartTableView" prefHeight="410" VBox.vgrow="ALWAYS" styleClass="data-table"><columns><TableColumn fx:id="itemColumn" text="Item" prefWidth="330"/><TableColumn fx:id="priceColumn" text="Price" prefWidth="130"/><TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="140"/><TableColumn fx:id="subtotalColumn" text="Subtotal" prefWidth="150"/><TableColumn fx:id="actionsColumn" text="Add / Delete" prefWidth="190"/></columns></TableView>
+      <HBox alignment="TOP_RIGHT" spacing="18"><VBox prefWidth="380" spacing="10" styleClass="card"><Label text="Discount Code" styleClass="section-title-small"/><HBox spacing="8"><TextField fx:id="discountCodeField" promptText="Enter code" HBox.hgrow="ALWAYS"/><Button fx:id="applyDiscountButton" text="Apply" styleClass="primary-button"/></HBox><Button fx:id="continueShoppingButton" text="Continue Shopping" styleClass="secondary-button"/></VBox>
+      <VBox prefWidth="420" spacing="10" styleClass="summary-card"><Label text="Cart Summary" styleClass="section-title"/><HBox><Label text="Subtotal"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="subtotalLabel" text="$0.00"/></HBox><HBox><Label text="Tax (8.25%)"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="taxLabel" text="$0.00"/></HBox><HBox><Label text="Discount"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="discountLabel" text="$0.00"/></HBox><Separator/><HBox><Label text="Total" styleClass="summary-total-label"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="totalLabel" text="$0.00" styleClass="summary-total-value"/></HBox><Button fx:id="checkoutButton" text="Proceed to Checkout" maxWidth="Infinity" styleClass="accent-button"/></VBox></HBox>
+    </VBox>
+  </center>
+</BorderPane>
