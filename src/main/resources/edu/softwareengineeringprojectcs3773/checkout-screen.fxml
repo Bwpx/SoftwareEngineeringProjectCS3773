@@ -17,6 +17,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.softwareengineeringproject3773.controller.CheckoutController"
             prefWidth="1220.0"
             prefHeight="840.0"
             stylesheets="@customer-portal.css"
