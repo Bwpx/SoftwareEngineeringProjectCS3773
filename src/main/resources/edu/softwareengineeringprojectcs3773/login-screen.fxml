@@ -8,22 +8,22 @@
             xmlns:fx="http://javafx.com/fxml/1" prefWidth="900" prefHeight="650" stylesheets="@customer-portal.css" styleClass="app-root">
   <top>
     <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar">
-      <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
-      <StackPane minWidth="46" minHeight="46" maxWidth="46" maxHeight="46" styleClass="brand-mark"><Label text="UTSA" styleClass="brand-mark-text"/></StackPane>
-      <VBox spacing="2"><Label text="Customer Login" styleClass="page-title"/><Label text="Roadrunner Marketplace" styleClass="page-subtitle"/></VBox>
+      <padding><Insets bottom="16" left="24" right="24" top="16" /></padding>
+      <StackPane maxHeight="46" maxWidth="46" minHeight="46" minWidth="46" styleClass="brand-mark"><Label styleClass="brand-mark-text" text="UTSA" /></StackPane>
+      <VBox spacing="2"><Label styleClass="page-title" text="Customer Login" /><Label styleClass="page-subtitle" text="Roadrunner Marketplace" /></VBox>
     </HBox>
   </top>
   <center>
     <StackPane>
       <VBox maxWidth="430" spacing="14" styleClass="card">
-        <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
-        <Label text="Welcome Back" styleClass="section-title"/>
-        <Label text="Email or Username" styleClass="field-label"/><TextField fx:id="loginUsernameField" promptText="Enter email or username"/>
-        <Label text="Password" styleClass="field-label"/><PasswordField fx:id="loginPasswordField" promptText="Enter password"/>
-        <CheckBox fx:id="rememberMeCheckBox" text="Remember me"/>
-        <Label fx:id="loginMessageLabel" text="" styleClass="error-label"/>
-        <Button fx:id="loginButton" text="Log In" maxWidth="Infinity" styleClass="primary-button"/>
-        <Button fx:id="openRegisterButton" text="Create an Account" maxWidth="Infinity" styleClass="secondary-button"/>
+        <padding><Insets bottom="28" left="28" right="28" top="28" /></padding>
+        <Label styleClass="section-title" text="Welcome Back" />
+        <Label styleClass="field-label" text="Email or Username" /><TextField fx:id="loginUsernameField" promptText="Enter email or username" />
+        <Label styleClass="field-label" text="Password" /><PasswordField fx:id="loginPasswordField" promptText="Enter password" />
+        <CheckBox fx:id="rememberMeCheckBox" text="Remember me" />
+        <Label fx:id="loginMessageLabel" styleClass="error-label" text="" />
+        <Button fx:id="loginButton" maxWidth="Infinity" onAction="#loginAction" styleClass="primary-button" text="Log In" />
+        <Button fx:id="openRegisterButton" maxWidth="Infinity" onAction="#createAccountAction" styleClass="secondary-button" text="Create an Account" />
       </VBox>
     </StackPane>
   </center>
