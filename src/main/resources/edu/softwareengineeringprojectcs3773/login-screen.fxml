@@ -3,7 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" prefWidth="900" prefHeight="650" stylesheets="@customer-portal.css" styleClass="app-root">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2"
+            fx:controller="edu.softwareengineeringproject3773.controller.LoginController"
+            xmlns:fx="http://javafx.com/fxml/1" prefWidth="900" prefHeight="650" stylesheets="@customer-portal.css" styleClass="app-root">
   <top>
     <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar">
       <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
