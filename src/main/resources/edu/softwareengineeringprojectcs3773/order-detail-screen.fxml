@@ -9,6 +9,7 @@
 <?import java.lang.String?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.softwareengineeringproject3773.controller.OrderDetailsController"
             prefWidth="1180.0" prefHeight="800.0" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="page">
     <top>
         <HBox styleClass="header">

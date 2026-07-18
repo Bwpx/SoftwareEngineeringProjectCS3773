@@ -8,7 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.softwareengineeringproject3773.controller.BrowseItemsController"
             prefWidth="1250.0" prefHeight="800.0" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="page">
     <top>
         <VBox>
