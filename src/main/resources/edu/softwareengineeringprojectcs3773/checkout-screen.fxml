@@ -1,91 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.collections.FXCollections?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="1220.0" prefHeight="840.0" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="page">
-    <fx:define>
-        <ToggleGroup fx:id="deliveryToggleGroup"/>
-        <ToggleGroup fx:id="paymentToggleGroup"/>
-    </fx:define>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="1220.0"
+            prefHeight="840.0"
+            stylesheets="@customer-portal.css"
+            styleClass="page">
+
     <top>
-        <HBox styleClass="header">
-            <Label text="Checkout" styleClass="header-title" HBox.hgrow="ALWAYS"/>
-            <Button fx:id="backToCartButton" text="Back to Cart" styleClass="nav-button"/>
+        <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="header">
+            <Label text="Checkout" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="backToCartButton"
+                    text="Back to Cart"
+                    styleClass="nav-button"/>
         </HBox>
     </top>
+
     <center>
-        <ScrollPane fitToWidth="true">
+        <ScrollPane fitToWidth="true" pannable="true">
             <content>
-                <GridPane hgap="22.0" styleClass="content">
+                <GridPane hgap="22.0" vgap="18.0" styleClass="content">
                     <columnConstraints>
-                        <ColumnConstraints percentWidth="66.0"/>
-                        <ColumnConstraints percentWidth="34.0"/>
+                        <ColumnConstraints percentWidth="64.0"/>
+                        <ColumnConstraints percentWidth="36.0"/>
                     </columnConstraints>
-                    <VBox spacing="18.0">
+
+                    <VBox spacing="18.0" GridPane.columnIndex="0">
                         <GridPane hgap="14.0" vgap="12.0" styleClass="card">
                             <columnConstraints>
                                 <ColumnConstraints percentWidth="50.0"/>
                                 <ColumnConstraints percentWidth="50.0"/>
                             </columnConstraints>
-                            <Label text="Delivery Address" styleClass="card-title" GridPane.columnSpan="2"/>
-                            <Label text="Full Name" GridPane.rowIndex="1"/>
-                            <TextField fx:id="checkoutNameField" promptText="Full name" GridPane.rowIndex="2"/>
-                            <Label text="Phone" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                            <TextField fx:id="checkoutPhoneField" promptText="Phone number" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                            <Label text="Street Address" GridPane.rowIndex="3"/>
-                            <TextField fx:id="streetField" promptText="Street address" GridPane.rowIndex="4" GridPane.columnSpan="2"/>
-                            <Label text="City" GridPane.rowIndex="5"/>
-                            <TextField fx:id="cityField" promptText="City" GridPane.rowIndex="6"/>
-                            <Label text="State" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                            <TextField fx:id="stateField" promptText="TX" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                            <Label text="ZIP Code" GridPane.rowIndex="7"/>
-                            <TextField fx:id="zipField" promptText="78249" GridPane.rowIndex="8"/>
-                            <CheckBox fx:id="saveAddressCheckBox" text="Save this address" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+                            <Label text="Delivery Address"
+                                   styleClass="card-title"
+                                   GridPane.columnSpan="2"/>
+
+                            <Label text="Full Name"
+                                   GridPane.rowIndex="1"/>
+                            <TextField fx:id="checkoutNameField"
+                                       promptText="Full name"
+                                       GridPane.rowIndex="2"/>
+
+                            <Label text="Phone"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="1"/>
+                            <TextField fx:id="checkoutPhoneField"
+                                       promptText="Phone number"
+                                       GridPane.columnIndex="1"
+                                       GridPane.rowIndex="2"/>
+
+                            <Label text="Street Address"
+                                   GridPane.rowIndex="3"/>
+                            <TextField fx:id="streetField"
+                                       promptText="Street address"
+                                       GridPane.rowIndex="4"
+                                       GridPane.columnSpan="2"/>
+
+                            <Label text="City"
+                                   GridPane.rowIndex="5"/>
+                            <TextField fx:id="cityField"
+                                       promptText="City"
+                                       GridPane.rowIndex="6"/>
+
+                            <Label text="State"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="5"/>
+                            <TextField fx:id="stateField"
+                                       promptText="TX"
+                                       GridPane.columnIndex="1"
+                                       GridPane.rowIndex="6"/>
+
+                            <Label text="ZIP Code"
+                                   GridPane.rowIndex="7"/>
+                            <TextField fx:id="zipField"
+                                       promptText="78249"
+                                       GridPane.rowIndex="8"/>
+
+                            <CheckBox fx:id="saveAddressCheckBox"
+                                      text="Save this address"
+                                      GridPane.columnIndex="1"
+                                      GridPane.rowIndex="8"/>
                         </GridPane>
-                        <VBox spacing="12.0" styleClass="card">
+
+                        <VBox spacing="10.0" styleClass="card">
                             <Label text="Delivery Method" styleClass="card-title"/>
-                            <RadioButton fx:id="standardDeliveryRadio" text="Standard Delivery — 3–5 business days"
-                                         selected="true" toggleGroup="$deliveryToggleGroup"/>
-                            <RadioButton fx:id="expressDeliveryRadio" text="Express Delivery — 1–2 business days"
-                                         toggleGroup="$deliveryToggleGroup"/>
-                            <RadioButton fx:id="pickupRadio" text="Campus Pickup"
-                                         toggleGroup="$deliveryToggleGroup"/>
+                            <Label text="Choose how you want to receive your order." styleClass="muted-label"/>
+                            <ComboBox fx:id="deliveryMethodComboBox"
+                                      promptText="Select delivery method"
+                                      maxWidth="1.7976931348623157E308"/>
                         </VBox>
+
                         <VBox spacing="12.0" styleClass="card">
-                            <Label text="Payment Method" styleClass="card-title"/>
-                            <RadioButton fx:id="creditCardRadio" text="Credit or Debit Card"
-                                         selected="true" toggleGroup="$paymentToggleGroup"/>
-                            <RadioButton fx:id="savedPaymentRadio" text="Saved Payment Method"
-                                         toggleGroup="$paymentToggleGroup"/>
+                            <Label text="Payment Information" styleClass="card-title"/>
+
+                            <Label text="Payment Method"/>
+                            <ComboBox fx:id="paymentMethodComboBox"
+                                      promptText="Select payment method"
+                                      maxWidth="1.7976931348623157E308"/>
+
+                            <Label text="Card Number"/>
+                            <TextField fx:id="cardNumberField"
+                                       promptText="0000 0000 0000 0000"/>
+
                             <GridPane hgap="12.0" vgap="10.0">
-                                <Label text="Card Number"/>
-                                <TextField fx:id="cardNumberField" promptText="0000 0000 0000 0000" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
-                                <Label text="Expiration" GridPane.rowIndex="2"/>
-                                <Label text="CVV" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                                <TextField fx:id="expirationField" promptText="MM/YY" GridPane.rowIndex="3"/>
-                                <PasswordField fx:id="cvvField" promptText="CVV" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                                <columnConstraints>
+                                    <ColumnConstraints percentWidth="50.0"/>
+                                    <ColumnConstraints percentWidth="50.0"/>
+                                </columnConstraints>
+
+                                <Label text="Expiration"/>
+                                <Label text="CVV" GridPane.columnIndex="1"/>
+
+                                <TextField fx:id="expirationField"
+                                           promptText="MM/YY"
+                                           GridPane.rowIndex="1"/>
+                                <PasswordField fx:id="cvvField"
+                                               promptText="CVV"
+                                               GridPane.columnIndex="1"
+                                               GridPane.rowIndex="1"/>
                             </GridPane>
                         </VBox>
                     </VBox>
-                    <VBox spacing="14.0" styleClass="card" GridPane.columnIndex="1">
+
+                    <VBox spacing="14.0"
+                          styleClass="card"
+                          GridPane.columnIndex="1">
                         <Label text="Order Summary" styleClass="card-title"/>
                         <Label text="2 items" styleClass="muted-label"/>
                         <Separator/>
-                        <HBox><Label text="Subtotal" HBox.hgrow="ALWAYS"/><Label fx:id="checkoutSubtotalLabel" text=""/></HBox>
-                        <HBox><Label text="Delivery" HBox.hgrow="ALWAYS"/><Label fx:id="deliveryFeeLabel" text=""/></HBox>
-                        <HBox><Label text="Tax" HBox.hgrow="ALWAYS"/><Label fx:id="checkoutTaxLabel" text=""/></HBox>
+
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Subtotal"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="checkoutSubtotalLabel" text=""/>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Delivery"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="deliveryFeeLabel" text=""/>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Tax"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="checkoutTaxLabel" text=""/>
+                        </HBox>
+
                         <Separator/>
-                        <HBox><Label text="Total" styleClass="section-title" HBox.hgrow="ALWAYS"/><Label fx:id="checkoutTotalLabel" text="" styleClass="price-label"/></HBox>
-                        <Button fx:id="placeOrderButton" text="Place Order"
-                                maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
-                        <Label fx:id="checkoutMessageLabel" text="" wrapText="true"/>
+
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Total" styleClass="section-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="checkoutTotalLabel"
+                                   text=""
+                                   styleClass="price-label"/>
+                        </HBox>
+
+                        <Button fx:id="placeOrderButton"
+                                text="Place Order"
+                                maxWidth="1.7976931348623157E308"
+                                styleClass="primary-button"/>
+
+                        <Label fx:id="checkoutMessageLabel"
+                               text=""
+                               wrapText="true"/>
                     </VBox>
                 </GridPane>
             </content>
