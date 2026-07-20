@@ -22,6 +22,7 @@ public class LoginController {
 	
 	Stage stage;
 	Scene registerScene;
+	Scene homeScene;
 	LoginView loginView;
 	AccountRepository accounts;
 	
@@ -48,6 +49,10 @@ public class LoginController {
 		this.registerScene = registerScene;
 	}
 	
+	public void setHomeScene(Scene homeScene) {
+		this.homeScene = homeScene;
+	}
+	
 	public void createAccountAction(ActionEvent event) {
 		Button button = (Button) (event.getTarget());
 		String data = (String) (button.getUserData());
@@ -64,9 +69,10 @@ public class LoginController {
 		String username = loginUsernameField.getText();
 		String password = loginPasswordField.getText();
 		if(username.isEmpty() || password.isEmpty()) {
-			loginView.displayMessage("Please enter username and password.");
+			loginView.displayMessage("Please enter a username and password.");
 		}else if(!(accounts.emailExists(username)) || !(accounts.usernameExists(username))) {
 			loginView.displayMessage("Invalid username or email.");
+			stage.setScene(homeScene);
 		}
 	}
 }

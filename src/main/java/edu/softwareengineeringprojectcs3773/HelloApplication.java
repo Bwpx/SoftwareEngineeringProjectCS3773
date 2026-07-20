@@ -21,8 +21,21 @@ public class HelloApplication extends Application {
         FXMLLoader registerLoader = new FXMLLoader(getURL("register-screen.fxml"));
         Scene registerScene = new Scene(registerLoader.load());
         
+        FXMLLoader homeLoader = new FXMLLoader(getURL("home-screen.fxml"));
+        Scene homeScene = new Scene(homeLoader.load());
+        
+        FXMLLoader accountLoader = new FXMLLoader(getURL("account-screen.fxml"));
+        Scene accountScene = new Scene(accountLoader.load());
+        
+        FXMLLoader addressLoader = new FXMLLoader(getURL("address-dialog.fxml"));
+        Scene addressScene = new Scene(addressLoader.load());
+        
+        FXMLLoader browseLoader = new FXMLLoader(getURL("browse-items-screen.fxml"));
+        Scene browseScene = new Scene(browseLoader.load());
+        
         loginController.setStage(stage);
         loginController.setRegisterScene(registerScene);
+        loginController.setHomeScene(homeScene);
         
         
         stage.setTitle("RoadRunner MarketPlace!");
