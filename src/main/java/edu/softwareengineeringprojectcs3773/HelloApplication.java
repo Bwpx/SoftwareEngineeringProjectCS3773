@@ -31,7 +31,7 @@ public class HelloApplication extends Application {
         Scene addressScene = new Scene(addressLoader.load());
         
         FXMLLoader browseLoader = new FXMLLoader(getURL("browse-items-screen.fxml"));
-        Scene browseScene = new Scene(browseLoader.load());
+        //Scene browseScene = new Scene(browseLoader.load());
         
         FXMLLoader cartLoader = new FXMLLoader(getURL("cart-screen.fxml"));
         Scene cartScene = new Scene(browseLoader.load());
