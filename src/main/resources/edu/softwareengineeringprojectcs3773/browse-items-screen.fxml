@@ -11,7 +11,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.softwareengineeringproject3773.controller.BrowseItemsController"
-            prefWidth="1250.0" prefHeight="800.0" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="page">
+            prefWidth="1250.0" prefHeight="800.0" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="app-root">
     <top>
         <VBox>
             <HBox styleClass="header">

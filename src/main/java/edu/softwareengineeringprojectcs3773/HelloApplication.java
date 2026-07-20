@@ -21,8 +21,39 @@ public class HelloApplication extends Application {
         FXMLLoader registerLoader = new FXMLLoader(getURL("register-screen.fxml"));
         Scene registerScene = new Scene(registerLoader.load());
         
+        FXMLLoader homeLoader = new FXMLLoader(getURL("home-screen.fxml"));
+        Scene homeScene = new Scene(homeLoader.load());
+        
+        FXMLLoader accountLoader = new FXMLLoader(getURL("account-screen.fxml"));
+        Scene accountScene = new Scene(accountLoader.load());
+        
+        FXMLLoader addressLoader = new FXMLLoader(getURL("address-dialog.fxml"));
+        Scene addressScene = new Scene(addressLoader.load());
+        
+        FXMLLoader browseLoader = new FXMLLoader(getURL("browse-items-screen.fxml"));
+        //Scene browseScene = new Scene(browseLoader.load());
+        
+        FXMLLoader cartLoader = new FXMLLoader(getURL("cart-screen.fxml"));
+        Scene cartScene = new Scene(browseLoader.load());
+        
+        FXMLLoader checkoutLoader = new FXMLLoader(getURL("checkout-screen.fxml"));
+        Scene checkoutScene = new Scene(checkoutLoader.load());
+        
+        FXMLLoader itemLoader = new FXMLLoader(getURL("item-detail-screen.fxml"));
+        Scene itemScene = new Scene(itemLoader.load());
+        
+        FXMLLoader confirmationLoader = new FXMLLoader(getURL("order-confirmation-screen.fxml"));
+        Scene confirmationScene = new Scene(confirmationLoader.load());
+        
+        FXMLLoader detailLoader = new FXMLLoader(getURL("order-detail-screen.fxml"));
+        Scene detailScene = new Scene(detailLoader.load());
+        
+        FXMLLoader historyLoader = new FXMLLoader(getURL("order-history-screen.fxml"));
+        Scene historyScene = new Scene(historyLoader.load());
+        
         loginController.setStage(stage);
         loginController.setRegisterScene(registerScene);
+        loginController.setHomeScene(homeScene);
         
         
         stage.setTitle("RoadRunner MarketPlace!");
