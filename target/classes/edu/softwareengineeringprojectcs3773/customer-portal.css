@@ -144,25 +144,26 @@
     -fx-background-color: white;
     -fx-background-radius: 18;
     -fx-border-radius: 18;
-    -fx-border-color: -border;
+    -fx-border-color: #DCE3EB;
     -fx-effect: dropshadow(
-    gaussian,
-    rgba(16, 24, 40, 0.08),
-    18,
-    0.12,
-    0,
-    5
+        gaussian,
+        rgba(16, 24, 40, 0.08),
+        18,
+        0.12,
+        0,
+        5
     ):
 }
 
 .item-card:hover {
-    -fx-border-color: dropshadow(
-    gaussian,
-    rgba(12, 35, 64, 0.16),
-    22,
-    0.16,
-    0,
-    7
+    -fx-border-color: #F15A22
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(12, 35, 64, 0.16),
+        22,
+        0.16,
+        0,
+        7
 );
 }
 
@@ -174,16 +175,16 @@
 .item-card-title {
     -fx-font-size: 17px;
     -fx-font-weight: 800;
-    -fx-text-fill: -utsa-navy;
+    -fx-text-fill: #0C2340;
 }
 
 .item-card-price {
     -fx-font-size: 20px;
     -fx-font-weight: 800;
-    -fx-text-fill: -utsa-orange;
+    -fx-text-fill: #F15A22;
 }
 
 .unavailable-label {
-    -fx-text-fill: -danger;
+    -fx-text-fill: #C0392B;
     -fx-font-weight: 700;
 }

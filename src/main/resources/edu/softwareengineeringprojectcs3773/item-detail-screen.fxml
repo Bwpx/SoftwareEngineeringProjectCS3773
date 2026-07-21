@@ -10,7 +10,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.softwareengineeringproject3773.controller.ItemDetailsController"
-            prefWidth="1180.0" prefHeight="760.0" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="page">
+            prefWidth="1180.0" prefHeight="760.0" stylesheets="@customer-portal.css" styleClass="page">
     <top>
         <HBox styleClass="header">
             <Label text="Item Details" styleClass="header-title" HBox.hgrow="ALWAYS"/>

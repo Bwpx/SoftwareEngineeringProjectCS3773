@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.softwareengineeringproject3773.controller.OrderHistoryController"
-            prefWidth="1200" prefHeight="760" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="app-root">
+            prefWidth="1200" prefHeight="760" stylesheets="@customer-portal.css" styleClass="app-root">
   <top>
     <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar">
       <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
