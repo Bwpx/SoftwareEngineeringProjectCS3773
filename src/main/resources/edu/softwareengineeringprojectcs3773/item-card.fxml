@@ -10,9 +10,9 @@
 <VBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="edu.softwareengineeringproject3773.controller.ItemCardController"
-      prefWidth="250.0"
-      minWidth="250.0"
-      maxWidth="250.0"
+      prefWidth="245.0"
+      minWidth="245.0"
+      maxWidth="245.0"
       spacing="10.0"
       styleClass="item-card">
 
@@ -23,13 +23,13 @@
                 left="16.0"/>
     </padding>
 
-    <StackPane prefHeight="160.0"
-               minHeight="160.0"
+    <StackPane prefHeight="150.0"
+               minHeight="150.0"
                styleClass="item-card-image-container">
 
         <ImageView fx:id="itemImageView"
                    fitWidth="210.0"
-                   fitHeight="150.0"
+                   fitHeight="140.0"
                    preserveRatio="true"
                    smooth="true"/>
 
@@ -41,7 +41,7 @@
     <Label fx:id="itemNameLabel"
            text="Item Name"
            wrapText="true"
-           maxWidth="220.0"
+           maxWidth="215.0"
            styleClass="item-card-title"/>
 
     <Label fx:id="itemDescriptionLabel"
@@ -51,6 +51,10 @@
            minHeight="42.0"
            maxHeight="42.0"
            styleClass="item-card-description"/>
+
+    <Label fx:id="categoryLabel"
+           text="Category"
+           styleClass="muted-text"/>
 
     <Label fx:id="itemPriceLabel"
            text=""
@@ -65,5 +69,11 @@
             maxWidth="1.7976931348623157E308"
             onAction="#handleViewDetails"
             styleClass="accent-button"/>
+
+    <Button fx:id="addToCartButton"
+            text="Add to Cart"
+            onAction="#handleAddToCart"
+            maxWidth="1.7976931348623157E308"
+            styleClass="primary-button"/>
 
 </VBox>

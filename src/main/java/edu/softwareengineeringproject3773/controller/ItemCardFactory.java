@@ -1,10 +1,11 @@
 package edu.softwareengineeringproject3773.controller;
 
-import edu.softwareengineeringprojectcs3773.model.Item;
+import edu.softwareengineeringprojectcs3773.model.GroceryItem;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.function.Consumer;
 
 public class ItemCardFactory {
@@ -16,16 +17,28 @@ public class ItemCardFactory {
 
     }
 
-    public static Node createItemCard(
-            Item item, Consumer<Item> viewDetailsHandler) throws IOException {
-        FXMLLoader loader = new FXMLLoader(ItemCardFactory.class.getResource(ITEM_CARD_FXML));
+    public static Node create(
+            GroceryItem item, Consumer<GroceryItem> viewDetailsHandler, Consumer<GroceryItem> addToCartHandler)
+            throws IOException {
+             URL resource = ItemCardFactory.class.getResource(
+                ITEM_CARD_FXML);
 
-        Node itemCard = loader.load();
+        if (resource == null) {
+            throw new IOException(
+                    "Could not locate " + ITEM_CARD_FXML
+            );
+        }
+
+        FXMLLoader loader = new FXMLLoader(resource);
+
+        Node card = loader.load();
 
         ItemCardController controller = loader.getController();
+
         controller.setItem(item);
         controller.setOnViewDetails(viewDetailsHandler);
+        controller.setOnAddToCart(addToCartHandler);
 
-        return itemCard;
+        return card;
     }
 }

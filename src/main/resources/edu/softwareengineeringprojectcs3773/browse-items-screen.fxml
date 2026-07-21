@@ -11,28 +11,34 @@
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.softwareengineeringproject3773.controller.BrowseItemsController"
-            prefWidth="1250.0" prefHeight="800.0" stylesheets="@../../../../../../../CustomerPortalScreens/customer-portal.css" styleClass="app-root">
+            prefWidth="1250.0" prefHeight="800.0" stylesheets="@customer-portal.css" styleClass="app-root">
     <top>
         <VBox>
             <HBox styleClass="header">
                 <Label text="Browse Items" styleClass="header-title" HBox.hgrow="ALWAYS"/>
-                <Button fx:id="homeButton" text="Home" styleClass="nav-button"/>
-                <Button fx:id="cartButton" text="Cart" styleClass="nav-button"/>
-                <Button fx:id="ordersButton" text="Orders" styleClass="nav-button"/>
+                <Button fx:id="homeButton" onAction="#handleHome" text="Home" styleClass="nav-button"/>
+                <Button fx:id="cartButton" onAction="#handleCart" text="Cart" styleClass="nav-button"/>
+                <Button fx:id="ordersButton" onAction="#handleOrders" text="Orders" styleClass="nav-button"/>
             </HBox>
-            <HBox spacing="12.0" alignment="CENTER_LEFT" style="-fx-padding: 16 28 16 28; -fx-background-color: white;">
+            <HBox spacing="12.0" alignment="CENTER_LEFT"
+                  style="-fx-padding: 16 28 16 28;
+                        -fx-background-color: white;">
                 <TextField fx:id="searchField" promptText="Search items..." prefWidth="360.0"/>
-                <ComboBox fx:id="categoryComboBox" promptText="Category" prefWidth="170.0">
+                <ComboBox fx:id="categoryComboBox" promptText="Category" prefWidth="170.0"
+                        onAction="#handleFiltersChanged">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="All Categories"/>
-                            <String fx:value="Apparel"/>
-                            <String fx:value="Technology"/>
-                            <String fx:value="Supplies"/>
+                            <String fx:value="Dairy"/>
+                            <String fx:value="Bakery"/>
+                            <String fx:value="Produce"/>
+                            <String fx:value="Meat"/>
+                            <String fx:value="Pantry"/>
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <ComboBox fx:id="sortComboBox" promptText="Sort by" prefWidth="180.0">
+                <ComboBox fx:id="sortComboBox" promptText="Sort by" prefWidth="180.0"
+                            onAction="#handleFiltersChanged">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Price: Low to High"/>
@@ -41,15 +47,18 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <CheckBox fx:id="availableOnlyCheckBox" text="Available only"/>
+                <CheckBox fx:id="availableOnlyCheckBox" text="Available only"
+                            onAction="#handleFiltersChanged"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Button fx:id="clearFiltersButton" text="Clear Filters" styleClass="outline-button"/>
+                <Button fx:id="clearFiltersButton" text="Clear Filters"
+                        onAction="#handleClearFilters"
+                        styleClass="outline-button"/>
             </HBox>
         </VBox>
     </top>
     <center>
         <ScrollPane fitToWidth="true"
-        VBox.vgrow="ALWAYS"
+        pannable = "true"
         styleClass="screen-scroll">
             <content>
                 <TilePane fx:id="itemsTilePane"

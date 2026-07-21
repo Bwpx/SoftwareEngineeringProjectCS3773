@@ -1,6 +1,6 @@
 package edu.softwareengineeringproject3773.controller;
 
-import edu.softwareengineeringprojectcs3773.model.Item;
+import edu.softwareengineeringprojectcs3773.model.GroceryItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +21,7 @@ public class ItemCardController {
     private Label itemNameLabel;
 
     @FXML
-    private Label itemDescriptionLabel;
+    private Label categoryLabel;
 
     @FXML
     private Label itemPriceLabel;
@@ -32,16 +32,19 @@ public class ItemCardController {
     @FXML
     private Button viewDetailsButton;
 
-    private Item item;
+    @FXML
+    private Button addToCartButton;
+
+    private GroceryItem item;
 
     /*
      * The parent screen supplies this callback.
      * This keeps the card independent from scene navigation.
      */
 
-    private Consumer<Item> viewDetailsHandler;
-
-    public void setItem(Item item) {
+    private Consumer<GroceryItem> viewDetailsHandler;
+    private Consumer<GroceryItem> addToCartHandler;
+    public void setItem(GroceryItem item) {
         this.item = item;
 
         if (item == null) {
@@ -49,20 +52,28 @@ public class ItemCardController {
             return;
         }
 
-        itemNameLabel.setText(item.getName());
-        itemDescriptionLabel.setText(item.getDescription());
+        itemNameLabel.setText(item.getItemName());
+        categoryLabel.setText(item.getCategory());
         itemPriceLabel.setText(String.format("$%.2f", item.getPrice()));
 
         updateAvailability();
-        loadImage(item.getImagePath());
+        loadItemImage();
     }
 
-    public Item getItem() {
+    public GroceryItem getItem() {
         return item;
     }
 
-    public void setOnViewDetails(Consumer<Item> viewDetailsHandler) {
+    public void setOnViewDetails(
+            Consumer<GroceryItem> viewDetailsHandler
+    ) {
         this.viewDetailsHandler = viewDetailsHandler;
+    }
+
+    public void setOnAddToCart(
+            Consumer<GroceryItem> addToCartHandler
+    ) {
+        this.addToCartHandler = addToCartHandler;
     }
 
     @FXML
@@ -72,10 +83,20 @@ public class ItemCardController {
         }
     }
 
+    @FXML
+    private void handleAddToCart() {
+        if (item != null
+                && item.isInStock()
+                && addToCartHandler != null) {
+
+            addToCartHandler.accept(item);
+        }
+    }
+
     private void updateAvailability() {
-        if (item.isAvailable()) {
+        if (item.isInStock()) {
             availabilityLabel.setText(
-                    "In Stock (" + item.getQuantityAvailable() + ")"
+                    item.getQuantityInStock() + " in stock"
             );
 
             availabilityLabel.getStyleClass().remove(
@@ -90,7 +111,7 @@ public class ItemCardController {
                 );
             }
 
-            viewDetailsButton.setDisable(false);
+            addToCartButton.setDisable(false);
         } else {
             availabilityLabel.setText("Out of Stock");
 
@@ -105,57 +126,69 @@ public class ItemCardController {
                         "unavailable-label"
                 );
             }
-            /*
-             * Viewing details can remain enabled even when an item
-             * cannot currently be purchased.
-             */
-            viewDetailsButton.setDisable(false);
+
+            addToCartButton.setDisable(true);
         }
     }
 
-    private void loadImage(String imagePath) {
+    private void loadItemImage() {
         itemImageView.setImage(null);
-        imagePlaceholderLabel.setVisible(true);
-        imagePlaceholderLabel.setManaged(true);
+        showImagePlaceholder(true);
 
-        if (imagePath == null || imagePath.isBlank()) {
+        /*
+         *
+         * This convention lets us add images without changing
+         * repository or database code.
+         *
+         * Example:
+         * /images/items/milk.png
+         */
+        String imageName = item.getItemName()
+                .toLowerCase()
+                .replace(" ", "-");
+
+        String imagePath =
+                "/edu/softwareengineeringprojectcs3773/images/items/"
+                        + imageName
+                        + ".png";
+
+        URL imageUrl = getClass().getResource(imagePath);
+
+        if (imageUrl == null) {
             return;
         }
 
         try {
-            URL imageUrl = getClass().getResource(imagePath);
-
-            if (imageUrl == null) {
-                System.err.println(
-                        "Item image was not found: " + imagePath
-                );
-                return;
-            }
-
             Image image = new Image(
                     imageUrl.toExternalForm(),
                     true
             );
 
             itemImageView.setImage(image);
-            imagePlaceholderLabel.setVisible(false);
-            imagePlaceholderLabel.setManaged(false);
+            showImagePlaceholder(false);
 
         } catch (Exception exception) {
             System.err.println(
-                    "Unable to load item image: " + imagePath
+                    "Could not load item image: " + imagePath
             );
         }
     }
 
+    private void showImagePlaceholder(boolean show) {
+        imagePlaceholderLabel.setVisible(show);
+        imagePlaceholderLabel.setManaged(show);
+    }
+
     private void clearCard() {
         itemNameLabel.setText("");
-        itemDescriptionLabel.setText("");
+        categoryLabel.setText("");
         itemPriceLabel.setText("");
         availabilityLabel.setText("");
 
         itemImageView.setImage(null);
-        imagePlaceholderLabel.setVisible(true);
-        imagePlaceholderLabel.setManaged(true);
+        showImagePlaceholder(true);
+
+        addToCartButton.setDisable(true);
     }
 }
+
