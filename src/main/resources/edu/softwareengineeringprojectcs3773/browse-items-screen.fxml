@@ -48,34 +48,14 @@
         </VBox>
     </top>
     <center>
-        <ScrollPane fitToWidth="true">
+        <ScrollPane fitToWidth="true"
+        VBox.vgrow="ALWAYS"
+        styleClass="screen-scroll">
             <content>
-                <FlowPane fx:id="itemsFlowPane" hgap="18.0" vgap="18.0" prefWrapLength="1100.0" styleClass="content">
-                    <VBox prefWidth="250.0" spacing="10.0" styleClass="card">
-                        <StackPane styleClass="product-placeholder"><Label text="Product Image"/></StackPane>
-                        <Label text="UTSA Hoodie" styleClass="section-title"/>
-                        <Label text="Classic navy hoodie with UTSA branding." wrapText="true" styleClass="muted-label"/>
-                        <Label text="" styleClass="price-label"/>
-                        <Label text="In Stock" styleClass="badge"/>
-                        <Button text="View Details" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
-                    </VBox>
-                    <VBox prefWidth="250.0" spacing="10.0" styleClass="card">
-                        <StackPane styleClass="product-placeholder"><Label text="Product Image"/></StackPane>
-                        <Label text="Wireless Mouse" styleClass="section-title"/>
-                        <Label text="Comfortable mouse for work and study." wrapText="true" styleClass="muted-label"/>
-                        <Label text="" styleClass="price-label"/>
-                        <Label text="In Stock" styleClass="badge"/>
-                        <Button text="View Details" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
-                    </VBox>
-                    <VBox prefWidth="250.0" spacing="10.0" styleClass="card">
-                        <StackPane styleClass="product-placeholder"><Label text="Product Image"/></StackPane>
-                        <Label text="Notebook Set" styleClass="section-title"/>
-                        <Label text="Three durable notebooks for class notes." wrapText="true" styleClass="muted-label"/>
-                        <Label text="" styleClass="price-label"/>
-                        <Label text="In Stock" styleClass="badge"/>
-                        <Button text="View Details" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
-                    </VBox>
-                </FlowPane>
+                <TilePane fx:id="itemsTilePane"
+                          hgap="18.0"
+                          vgap="18.0"
+                          prefColumns="4"/>
             </content>
         </ScrollPane>
     </center>
