@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.softwareengineeringproject3773.controller.ItemDetailsController"
+            prefWidth="1180.0" prefHeight="760.0" stylesheets="@customer-portal.css" styleClass="page">
+    <top>
+        <HBox styleClass="header">
+            <Label text="Item Details" styleClass="header-title" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="backToBrowseButton" text="Back to Browse" styleClass="nav-button"/>
+            <Button fx:id="viewCartButton" text="Cart" styleClass="nav-button"/>
+        </HBox>
+    </top>
+    <center>
+        <GridPane hgap="28.0" vgap="18.0" styleClass="content">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="46.0"/>
+                <ColumnConstraints percentWidth="54.0"/>
+            </columnConstraints>
+            <StackPane minHeight="430.0" styleClass="card">
+                <VBox alignment="CENTER" spacing="14.0">
+                    <ImageView fx:id="itemImageView" fitWidth="360.0" fitHeight="300.0" preserveRatio="true"/>
+                    <Label text="Product Image Preview" styleClass="muted-label"/>
+                </VBox>
+            </StackPane>
+            <VBox spacing="16.0" styleClass="card" GridPane.columnIndex="1">
+                <Label fx:id="itemNameLabel" text="UTSA Hoodie" styleClass="card-title"/>
+                <Label fx:id="itemPriceLabel" text="" styleClass="price-label"/>
+                <Label fx:id="availabilityLabel" text="In Stock" styleClass="badge"/>
+                <Separator/>
+                <Label text="Description" styleClass="section-title"/>
+                <Label fx:id="itemDescriptionLabel"
+                       text="A comfortable navy hoodie featuring official UTSA colors and branding."
+                       wrapText="true"/>
+                <Label text="Quantity" styleClass="section-title"/>
+                <Spinner fx:id="quantitySpinner" editable="true" prefWidth="140.0">
+                    <valueFactory>
+                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="99" initialValue="1"/>
+                    </valueFactory>
+                </Spinner>
+                <HBox spacing="12.0">
+                    <Button fx:id="addToCartButton" text="Add to Cart" styleClass="primary-button"/>
+                    <Button fx:id="buyNowButton" text="Buy Now" styleClass="secondary-button"/>
+                </HBox>
+                <Label fx:id="itemMessageLabel" text=""/>
+            </VBox>
+        </GridPane>
+    </center>
+</BorderPane>

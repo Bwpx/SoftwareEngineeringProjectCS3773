@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.softwareengineeringproject3773.controller.OrderConfirmationController"
+            prefWidth="1100.0" prefHeight="740.0" stylesheets="@customer-portal.css" styleClass="page">
+    <top>
+        <HBox styleClass="header">
+            <Label text="Order Confirmation" styleClass="header-title"/>
+        </HBox>
+    </top>
+    <center>
+        <StackPane>
+            <VBox maxWidth="700.0" spacing="18.0" alignment="CENTER" styleClass="card">
+                <Label text="✓" style="-fx-font-size: 54px; -fx-text-fill: #18794E;"/>
+                <Label text="Thank You for Your Order!" styleClass="card-title"/>
+                <Label text="Your order has been received and is being processed."
+                       styleClass="muted-label" wrapText="true"/>
+                <Separator/>
+                <GridPane hgap="20.0" vgap="12.0">
+                    <Label text="Order Number"/>
+                    <Label fx:id="confirmationOrderNumberLabel" text="#UTSA-000001" GridPane.columnIndex="1"/>
+                    <Label text="Order Date" GridPane.rowIndex="1"/>
+                    <Label fx:id="confirmationDateLabel" text="July 17, 2026" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Delivery Method" GridPane.rowIndex="2"/>
+                    <Label fx:id="confirmationDeliveryLabel" text="Standard Delivery" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label text="Total" GridPane.rowIndex="3"/>
+                    <Label fx:id="confirmationTotalLabel" text="" styleClass="price-label" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                </GridPane>
+                <Label fx:id="confirmationEmailLabel"
+                       text="A confirmation email will be sent to the email address on your account."
+                       wrapText="true" styleClass="muted-label"/>
+                <HBox spacing="12.0" alignment="CENTER">
+                    <Button fx:id="viewOrderButton" text="View Order" styleClass="secondary-button"/>
+                    <Button fx:id="returnHomeButton" text="Return Home" styleClass="primary-button"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

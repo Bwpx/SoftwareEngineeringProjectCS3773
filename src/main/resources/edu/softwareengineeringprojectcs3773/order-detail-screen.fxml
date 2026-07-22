@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.softwareengineeringproject3773.controller.OrderDetailsController"
+            prefWidth="1180.0" prefHeight="800.0" stylesheets="@customer-portal.css" styleClass="page">
+    <top>
+        <HBox styleClass="header">
+            <Label text="Order Details" styleClass="header-title" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="backToHistoryButton" text="Back to Orders" styleClass="nav-button"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true">
+            <content>
+                <VBox spacing="18.0" styleClass="content">
+                    <GridPane hgap="18.0" vgap="10.0" styleClass="card">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50.0"/>
+                            <ColumnConstraints percentWidth="50.0"/>
+                        </columnConstraints>
+                        <Label text="Order #UTSA-000001" styleClass="card-title" GridPane.columnSpan="2"/>
+                        <Label text="Order Date: July 17, 2026" GridPane.rowIndex="1"/>
+                        <Label text="Status: Processing" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    </GridPane>
+                    <VBox spacing="12.0" styleClass="card">
+                        <Label text="Items" styleClass="card-title"/>
+                        <TableView fx:id="orderItemsTable" prefHeight="260.0">
+                            <columns>
+                                <TableColumn fx:id="orderItemNameColumn" text="Item" prefWidth="350.0"/>
+                                <TableColumn fx:id="orderItemPriceColumn" text="Price" prefWidth="140.0"/>
+                                <TableColumn fx:id="orderItemQuantityColumn" text="Quantity" prefWidth="140.0"/>
+                                <TableColumn fx:id="orderItemSubtotalColumn" text="Subtotal" prefWidth="160.0"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+                    <GridPane hgap="18.0">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="55.0"/>
+                            <ColumnConstraints percentWidth="45.0"/>
+                        </columnConstraints>
+                        <VBox spacing="8.0" styleClass="card">
+                            <Label text="Delivery Information" styleClass="card-title"/>
+                            <Label fx:id="orderAddressLabel" text="John Roadrunner&#10;1 UTSA Circle&#10;San Antonio, TX 78249" wrapText="true"/>
+                            <Label fx:id="orderDeliveryMethodLabel" text="Standard Delivery"/>
+                        </VBox>
+                        <VBox spacing="8.0" styleClass="card" GridPane.columnIndex="1">
+                            <Label text="Summary" styleClass="card-title"/>
+                            <HBox><Label text="Subtotal" HBox.hgrow="ALWAYS"/><Label text=""/></HBox>
+                            <HBox><Label text="Tax" HBox.hgrow="ALWAYS"/><Label text=""/></HBox>
+                            <Separator/>
+                            <HBox><Label text="Total" styleClass="section-title" HBox.hgrow="ALWAYS"/><Label fx:id="orderDetailTotalLabel" text="" styleClass="price-label"/></HBox>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>
