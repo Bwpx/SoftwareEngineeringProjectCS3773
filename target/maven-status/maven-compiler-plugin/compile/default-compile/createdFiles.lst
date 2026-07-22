@@ -8,4 +8,5 @@ edu\softwareengineeringprojectcs3773\repository\ItemRepository.class
 module-info.class
 edu\softwareengineeringprojectcs3773\HelloApplication.class
 edu\softwareengineeringprojectcs3773\model\GroceryItem.class
+edu\softwareengineeringprojectcs3773\AccountDatabaseTest.class
 edu\softwareengineeringprojectcs3773\service\AccountService.class
