@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import edu.softwareengineeringproject3773.controller.LoginController;
+import edu.softwareengineeringproject3773.controller.CartController;
 
 public class HelloApplication extends Application {
     @Override
@@ -50,7 +51,8 @@ public class HelloApplication extends Application {
         
         FXMLLoader historyLoader = new FXMLLoader(getURL("order-history-screen.fxml"));
         Scene historyScene = new Scene(historyLoader.load());
-        
+
+
         loginController.setStage(stage);
         loginController.setRegisterScene(registerScene);
         loginController.setHomeScene(homeScene);
