@@ -3,6 +3,7 @@ package edu.softwareengineeringproject3773.controller;
 import edu.softwareengineeringprojectcs3773.ApplicationState;
 import edu.softwareengineeringprojectcs3773.model.Account;
 import edu.softwareengineeringprojectcs3773.model.Cart;
+import edu.softwareengineeringprojectcs3773.model.CartItem;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CheckoutController {
 
@@ -96,6 +100,8 @@ public class CheckoutController {
     private Scene cartScene;
     private Scene confirmationScene;
 
+
+
     /*
      * This controller reference lets Checkout send temporary
      * order information to the confirmation screen.
@@ -104,6 +110,7 @@ public class CheckoutController {
      * object loaded through OrderService instead.
      */
     private OrderConfirmationController confirmationController;
+    private OrderDetailsController orderDetailsController;
 
     @FXML
     private void initialize() {
@@ -350,11 +357,30 @@ public class CheckoutController {
         placeOrderButton.setDisable(true);
 
         try {
+            double subtotal = cart.getSubtotal();
+            double tax = cart.getTax();
+            double deliveryFee = getDeliveryFee();
+
             double orderTotal =
-                    cart.getTotal() + getDeliveryFee();
+                    cart.getTotal() + deliveryFee;
 
             String deliveryMethod =
                     deliveryMethodComboBox.getValue();
+
+            String deliveryAddress =
+                    buildDeliveryAddress();
+
+            List<CartItem> orderedItems =
+                    new ArrayList<>();
+
+            for (CartItem cartItem : cart.getItems()) {
+                orderedItems.add(
+                        new CartItem(
+                                cartItem.getItem(),
+                                cartItem.getQuantity()
+                        )
+                );
+            }
 
             /*
              * Payment-gateway integration:
@@ -412,6 +438,23 @@ public class CheckoutController {
                         account.getEmail()
                 );
             }
+
+            if (orderDetailsController != null) {
+                orderDetailsController.setOrderDetails(
+                        temporaryOrderNumber,
+                        LocalDate.now(),
+                        "Processing",
+                        orderedItems,
+                        deliveryAddress,
+                        deliveryMethod,
+                        subtotal,
+                        tax,
+                        deliveryFee,
+                        orderTotal
+                );
+            }
+
+
 
             /*
              * Clear sensitive payment fields immediately after
@@ -636,6 +679,25 @@ public class CheckoutController {
 
     public void setCheckoutController(CheckoutController checkoutController) {
         this.checkoutController = checkoutController;
+    }
+
+    public void setOrderDetailsController(
+            OrderDetailsController orderDetailsController
+    ) {
+        this.orderDetailsController =
+                orderDetailsController;
+    }
+
+    private String buildDeliveryAddress() {
+        return checkoutNameField.getText().trim()
+                + "\n"
+                + streetField.getText().trim()
+                + "\n"
+                + cityField.getText().trim()
+                + ", "
+                + stateField.getText().trim()
+                + " "
+                + zipField.getText().trim();
     }
 
 }

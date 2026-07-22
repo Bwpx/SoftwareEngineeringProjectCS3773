@@ -40,6 +40,8 @@ public class OrderConfirmationController {
     private double orderTotal;
     private String confirmationEmail;
 
+    private OrderDetailsController orderDetailsController;
+
     @FXML
     private void initialize() {
         configureButtons();
@@ -223,6 +225,13 @@ public class OrderConfirmationController {
 
     public void setHomeScene(Scene homeScene) {
         this.homeScene = homeScene;
+    }
+
+    public void setOrderDetailsController(
+            OrderDetailsController orderDetailsController
+    ) {
+        this.orderDetailsController =
+                orderDetailsController;
     }
 
     public void setOrderDetailScene(
