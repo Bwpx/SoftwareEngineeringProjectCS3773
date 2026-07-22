@@ -1,7 +1,9 @@
 package edu.softwareengineeringproject3773.controller;
 
+import edu.softwareengineeringprojectcs3773.ApplicationState;
 import edu.softwareengineeringprojectcs3773.model.GroceryItem;
 import edu.softwareengineeringprojectcs3773.service.ItemService;
+import edu.softwareengineeringprojectcs3773.model.Cart;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
@@ -32,7 +34,7 @@ public class BrowseItemsController {
     @FXML
     private TilePane itemsTilePane;
 
-    private final ItemService itemService = new ItemService();
+    private final ItemService itemService = ApplicationState.getItemService();
 
     private ArrayList<GroceryItem> allItems;
 
@@ -170,13 +172,34 @@ public class BrowseItemsController {
     }
 
     private void addItemToCart(GroceryItem item) {
-        System.out.println(
-                "Add to cart: " + item.getItemName()
-        );
+       Cart cart = ApplicationState.getCurrentCart();
+
+       if (cart == null) {
+           System.err.println("Cannot add an item because no account is logged in");
+           /*
+            * Later:
+            * Display a login-required dialog or redirect the user
+            * to the login screen.
+            */
+           return;
+       }
+
+       cart.addItem(item);
+
+        System.out.println(item.getItemName() + " added to cart.");
 
         /*
-         * This will later call the existing Cart model or a
-         * CartService once we inspect those classes.
+         * Database integration:
+         *
+         * If carts are persisted in the database, this is where the
+         * controller will call a CartService method such as:
+         *
+         * cartService.addItem(
+         *         ApplicationState.getCurrentAccount().getAccountId(),
+         *         item.getItemId(),
+         *         1
+         * );
+         *
          */
     }
 
