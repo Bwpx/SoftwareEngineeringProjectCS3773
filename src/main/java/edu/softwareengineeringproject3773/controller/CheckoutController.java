@@ -34,6 +34,8 @@ public class CheckoutController {
     private static final double EXPRESS_DELIVERY_FEE = 9.99;
     private static final double STORE_PICKUP_FEE = 0.00;
 
+    private CheckoutController checkoutController;
+
     @FXML
     private Button backToCartButton;
 
@@ -423,18 +425,19 @@ public class CheckoutController {
              * exists, OrderService should clear the cart only
              * after the order transaction succeeds.
              */
-            cart.clear();
+
 
             if (confirmationScene == null) {
                 showMessage(
-                        "The order was prepared, but confirmation "
-                                + "navigation is not connected.",
+                        "Confirmation navigation is not connected",
                         true
                 );
 
                 placeOrderButton.setDisable(false);
                 return;
             }
+
+            cart.clear();
 
             getStage().setScene(confirmationScene);
 
@@ -630,4 +633,9 @@ public class CheckoutController {
         this.confirmationController =
                 confirmationController;
     }
+
+    public void setCheckoutController(CheckoutController checkoutController) {
+        this.checkoutController = checkoutController;
+    }
+
 }
