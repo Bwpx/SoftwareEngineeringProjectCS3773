@@ -2,13 +2,17 @@ package edu.softwareengineeringprojectcs3773.model;
 
 public class CartItem {
 
-    private GroceryItem item;
+    private final GroceryItem item;
 
     private int quantity;
 
     public CartItem(GroceryItem item) {
+        this(item, 1);
+    }
+
+    public CartItem(GroceryItem item, int quantity) {
         this.item = item;
-        quantity = 1;
+        setQuantity(quantity);
     }
 
     public GroceryItem getItem() {
@@ -19,15 +23,25 @@ public class CartItem {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        if (quantity < 1) {
+            this.quantity = 1;
+        } else {
+            this.quantity = quantity;
+        }
+    }
+
     public void incrementQunatity() {
         quantity++;
     }
 
     public void decrementQuantity() {
-        quantity--;
+        if (quantity > 1) {
+            quantity--;
+        }
     }
 
     public double getSubtotal() {
-        return quantity * item.getPrice();
+        return item.getPrice() * quantity;
     }
 }
