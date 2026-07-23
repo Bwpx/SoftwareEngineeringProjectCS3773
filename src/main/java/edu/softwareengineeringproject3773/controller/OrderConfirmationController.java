@@ -1,13 +1,16 @@
 package edu.softwareengineeringproject3773.controller;
 
+
+import edu.softwareengineeringprojectcs3773.SceneNavigator;
+import edu.softwareengineeringprojectcs3773.model.CartItem;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderConfirmationController {
 
@@ -32,31 +35,26 @@ public class OrderConfirmationController {
     @FXML
     private Button returnHomeButton;
 
-    private Scene homeScene;
-    private Scene orderDetailScene;
-
     private String orderNumber;
     private String deliveryMethod;
     private double orderTotal;
     private String confirmationEmail;
 
-    private OrderDetailsController orderDetailsController;
+    private LocalDate orderDate;
+    private String orderStatus;
+    private List<CartItem> orderItems = new ArrayList<>();
+    private String deliveryAddress;
+    private double subtotal;
+    private double tax;
+    private double deliveryFee;
+
 
     @FXML
     private void initialize() {
-        configureButtons();
+        viewOrderButton.setOnAction(event -> handleViewOrder());
+        returnHomeButton.setOnAction(event -> SceneNavigator.showHome());
+
     }
-
-    private void configureButtons() {
-        viewOrderButton.setOnAction(event ->
-                handleViewOrder()
-        );
-
-        returnHomeButton.setOnAction(event ->
-                handleReturnHome()
-        );
-    }
-
 
     public void setConfirmationData(
             String orderNumber,
@@ -69,175 +67,62 @@ public class OrderConfirmationController {
         this.orderTotal = total;
         this.confirmationEmail = email;
 
-        displayConfirmationData();
+        confirmationOrderNumberLabel.setText(safeText(orderNumber));
+        confirmationDateLabel.setText(LocalDate.now().format(
+                DateTimeFormatter.ofPattern("MMMM d, yyyy")));
+        confirmationDeliveryLabel.setText(safeText(deliveryMethod));
+        confirmationTotalLabel.setText(formatMoney(total));
+        confirmationEmailLabel.setText(email == null || email.isBlank()
+                ? "A confirmation email will be sent to the email address on your account."
+                : "A confirmation email will be sent to " + email + ".");
+
     }
 
-    private void displayConfirmationData() {
-        confirmationOrderNumberLabel.setText(
-                safeText(orderNumber)
-        );
 
-        confirmationDateLabel.setText(
-                LocalDate.now().format(
-                        DateTimeFormatter.ofPattern(
-                                "MMMM d, yyyy"
-                        )
+    public void setOrderDetailsData(String orderNumber, LocalDate orderDate,
+                                    String orderStatus, List<CartItem> items,
+                                    String deliveryAddress, String deliveryMethod,
+                                    double subtotal, double tax,
+                                    double deliveryFee, double total) {
+        this.orderNumber = orderNumber;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.orderItems = items == null ? new ArrayList<>() : new ArrayList<>(items);
+        this.deliveryAddress = deliveryAddress;
+        this.deliveryMethod = deliveryMethod;
+        this.subtotal = subtotal;
+        this.tax = tax;
+        this.deliveryFee = deliveryFee;
+        this.orderTotal = total;
+    }
+
+    private void handleViewOrder() {
+        SceneNavigator.showScene(
+                "order-detail-screen.fxml",
+                (OrderDetailsController controller) -> controller.setOrderDetails(
+                        orderNumber,
+                        orderDate,
+                        orderStatus,
+                        orderItems,
+                        deliveryAddress,
+                        deliveryMethod,
+                        subtotal,
+                        tax,
+                        deliveryFee,
+                        orderTotal
                 )
         );
-
-        confirmationDeliveryLabel.setText(
-                safeText(deliveryMethod)
-        );
-
-        confirmationTotalLabel.setText(
-                formatMoney(orderTotal)
-        );
-
-        if (confirmationEmail == null
-                || confirmationEmail.isBlank()) {
-
-            confirmationEmailLabel.setText(
-                    "A confirmation email will be sent "
-                            + "to the email address on your account."
-            );
-        } else {
-            confirmationEmailLabel.setText(
-                    "A confirmation email will be sent to "
-                            + confirmationEmail + "."
-            );
-        }
-
-        /*
-         * Database integration:
-         *
-         * Replace these temporary values with an Order object
-         * loaded through OrderService.
-         *
-         * Example:
-         *
-         * Order order =
-         *         orderService.getOrderById(orderId);
-         *
-         * confirmationOrderNumberLabel.setText(
-         *         order.getOrderNumber()
-         * );
-         *
-         * confirmationDateLabel.setText(
-         *         order.getOrderDate().format(...)
-         * );
-         *
-         * confirmationDeliveryLabel.setText(
-         *         order.getDeliveryMethod()
-         * );
-         *
-         * confirmationTotalLabel.setText(
-         *         formatMoney(order.getTotal())
-         * );
-         *
-         * OrderService should call OrderRepository. This
-         * controller should not access the database directly.
-         */
     }
 
-    @FXML
-    private void handleViewOrder() {
-        if (orderDetailScene == null) {
-            System.err.println(
-                    "Order detail navigation has not been connected."
-            );
-            return;
-        }
-
-        /*
-         * Database integration:
-         *
-         * Before opening the order detail screen, pass the
-         * database-generated order ID or order number to
-         * OrderDetailController.
-         *
-         * Example:
-         *
-         * orderDetailController.loadOrder(orderId);
-         */
-
-        getStage().setScene(orderDetailScene);
-    }
-
-    @FXML
-    private void handleReturnHome() {
-        if (homeScene == null) {
-            System.err.println(
-                    "Home navigation has not been connected."
-            );
-            return;
-        }
-
-        clearConfirmationData();
-
-        getStage().setScene(homeScene);
-    }
-
-    public void clearConfirmationData() {
-        orderNumber = null;
-        deliveryMethod = null;
-        orderTotal = 0.0;
-        confirmationEmail = null;
-
-        confirmationOrderNumberLabel.setText("");
-        confirmationDateLabel.setText("");
-        confirmationDeliveryLabel.setText("");
-        confirmationTotalLabel.setText("");
-        confirmationEmailLabel.setText(
-                "A confirmation email will be sent "
-                        + "to the email address on your account."
-        );
-    }
-
-    private Stage getStage() {
-        return (Stage) returnHomeButton
-                .getScene()
-                .getWindow();
-    }
 
     private String safeText(String value) {
+
         return value == null ? "" : value;
     }
 
     private String formatMoney(double amount) {
+
         return String.format("$%.2f", amount);
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public String getDeliveryMethod() {
-        return deliveryMethod;
-    }
-
-    public double getOrderTotal() {
-        return orderTotal;
-    }
-
-    public String getConfirmationEmail() {
-        return confirmationEmail;
-    }
-
-    public void setHomeScene(Scene homeScene) {
-        this.homeScene = homeScene;
-    }
-
-    public void setOrderDetailsController(
-            OrderDetailsController orderDetailsController
-    ) {
-        this.orderDetailsController =
-                orderDetailsController;
-    }
-
-    public void setOrderDetailScene(
-            Scene orderDetailScene
-    ) {
-        this.orderDetailScene = orderDetailScene;
     }
 
 }

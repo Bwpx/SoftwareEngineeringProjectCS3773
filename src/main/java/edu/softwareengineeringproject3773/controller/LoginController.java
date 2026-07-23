@@ -3,30 +3,29 @@ package edu.softwareengineeringproject3773.controller;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import edu.softwareengineeringproject3773.view.*;
-import edu.softwareengineeringprojectcs3773.repository.*;
+import edu.softwareengineeringproject3773.view.LoginView;
+import edu.softwareengineeringprojectcs3773.ApplicationState;
+import edu.softwareengineeringprojectcs3773.SceneNavigator;
+import edu.softwareengineeringprojectcs3773.model.Account;
+import edu.softwareengineeringprojectcs3773.repository.AccountRepository;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class LoginController {
 	@FXML Label loginMessageLabel;
 	@FXML Button loginButton, openRegisterButton;
 	@FXML TextField loginUsernameField;
 	@FXML PasswordField loginPasswordField;
-	
-	Stage stage;
-	Scene registerScene;
-	Scene homeScene;
-	LoginView loginView;
-	AccountRepository accounts;
 
-	private HomeController homeController;
+
+	private LoginView loginView;
+	private AccountRepository accounts;
+
 	
 	public void initialize() throws URISyntaxException, IOException {
 		accounts = new AccountRepository();
@@ -42,45 +41,34 @@ public class LoginController {
 		openRegisterButton.setUserData("create");
 		//System.out.println(loginButton.getUserData());
 	}
-	
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-	
-	public void setRegisterScene(Scene registerScene) {
-		this.registerScene = registerScene;
-	}
-	
-	public void setHomeScene(Scene homeScene) {
-		this.homeScene = homeScene;
-	}
 
-	public void setHomeController(
-			HomeController homeController ) {
-		this.homeController = homeController;
-	}
 
 	
 	public void createAccountAction(ActionEvent event) {
-		Button button = (Button) (event.getTarget());
-		String data = (String) (button.getUserData());
-		loginView.displayMessage(data);
-		stage.setScene(registerScene);
+		SceneNavigator.showRegister();
 	}
 	
 	public void loginAction(ActionEvent event) {
-		//System.out.println("test");
-		Button button = (Button) (event.getTarget());
-		String data = (String) (button.getUserData());
-		loginView.displayMessage(data);
-		
-		String username = loginUsernameField.getText();
+		String usernameOrEmail = loginUsernameField.getText();
 		String password = loginPasswordField.getText();
-		if(username.isEmpty() || password.isEmpty()) {
+
+		if (usernameOrEmail.isEmpty() || password.isEmpty()) {
 			loginView.displayMessage("Please enter a username and password.");
-		}else if(!(accounts.emailExists(username)) || !(accounts.usernameExists(username))) {
-			loginView.displayMessage("Invalid username or email.");
-			stage.setScene(homeScene);
+			return;
 		}
+
+		Account account = accounts.findByUsername(usernameOrEmail);
+		if (account == null) {
+			account = accounts.findByEmail(usernameOrEmail);
+		}
+
+		if (account == null || !account.getPassword().equals(password)) {
+			loginView.displayMessage("Invalid username/email or password.");
+			return;
+		}
+
+		ApplicationState.setCurrentAccount(account);
+		SceneNavigator.showHome();
 	}
 }
+

@@ -1,18 +1,17 @@
 package edu.softwareengineeringproject3773.controller;
 
 import edu.softwareengineeringprojectcs3773.ApplicationState;
+import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.Account;
 import edu.softwareengineeringprojectcs3773.model.Cart;
 import edu.softwareengineeringprojectcs3773.model.CartItem;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,20 +96,6 @@ public class CheckoutController {
     @FXML
     private Label checkoutMessageLabel;
 
-    private Scene cartScene;
-    private Scene confirmationScene;
-
-
-
-    /*
-     * This controller reference lets Checkout send temporary
-     * order information to the confirmation screen.
-     *
-     * Later, the confirmation controller should receive an Order
-     * object loaded through OrderService instead.
-     */
-    private OrderConfirmationController confirmationController;
-    private OrderDetailsController orderDetailsController;
 
     @FXML
     private void initialize() {
@@ -311,15 +296,7 @@ public class CheckoutController {
 
     @FXML
     private void handleBackToCart() {
-        if (cartScene == null) {
-            showMessage(
-                    "Cart navigation has not been connected yet.",
-                    true
-            );
-            return;
-        }
-
-        getStage().setScene(cartScene);
+        SceneNavigator.showCart();
     }
 
     @FXML
@@ -430,30 +407,14 @@ public class CheckoutController {
             String temporaryOrderNumber =
                     createTemporaryOrderNumber();
 
-            if (confirmationController != null) {
-                confirmationController.setConfirmationData(
-                        temporaryOrderNumber,
-                        deliveryMethod,
-                        orderTotal,
-                        account.getEmail()
-                );
-            }
-
-            if (orderDetailsController != null) {
-                orderDetailsController.setOrderDetails(
-                        temporaryOrderNumber,
-                        LocalDate.now(),
-                        "Processing",
-                        orderedItems,
-                        deliveryAddress,
-                        deliveryMethod,
-                        subtotal,
-                        tax,
-                        deliveryFee,
-                        orderTotal
-                );
-            }
-
+            final String finalOrderNumber = temporaryOrderNumber;
+            final String finalDeliveryMethod = deliveryMethod;
+            final double finalOrderTotal = orderTotal;
+            final String finalEmail = account.getEmail();
+            final String finalDeliveryAddress = deliveryAddress;
+            final double finalSubtotal = subtotal;
+            final double finalTax = tax;
+            final double finalDeliveryFee = deliveryFee;
 
 
             /*
@@ -470,19 +431,31 @@ public class CheckoutController {
              */
 
 
-            if (confirmationScene == null) {
-                showMessage(
-                        "Confirmation navigation is not connected",
-                        true
-                );
-
-                placeOrderButton.setDisable(false);
-                return;
-            }
-
             cart.clear();
 
-            getStage().setScene(confirmationScene);
+            SceneNavigator.showScene(
+                    "order-confirmation-screen.fxml",
+                    (OrderConfirmationController controller) -> {
+                        controller.setConfirmationData(
+                                finalOrderNumber,
+                                finalDeliveryMethod,
+                                finalOrderTotal,
+                                finalEmail
+                        );
+                        controller.setOrderDetailsData(
+                                finalOrderNumber,
+                                LocalDate.now(),
+                                "Processing",
+                                orderedItems,
+                                finalDeliveryAddress,
+                                finalDeliveryMethod,
+                                finalSubtotal,
+                                finalTax,
+                                finalDeliveryFee,
+                                finalOrderTotal
+                        );
+                    }
+            );
 
         } catch (Exception exception) {
             showMessage(
@@ -621,12 +594,6 @@ public class CheckoutController {
         return ApplicationState.getCurrentCart();
     }
 
-    private Stage getStage() {
-        return (Stage) placeOrderButton
-                .getScene()
-                .getWindow();
-    }
-
     private String safeText(String value) {
         return value == null ? "" : value;
     }
@@ -658,34 +625,6 @@ public class CheckoutController {
 
     private void clearMessage() {
         checkoutMessageLabel.setText("");
-    }
-
-    public void setCartScene(Scene cartScene) {
-        this.cartScene = cartScene;
-    }
-
-    public void setConfirmationScene(
-            Scene confirmationScene
-    ) {
-        this.confirmationScene = confirmationScene;
-    }
-
-    public void setConfirmationController(
-            OrderConfirmationController confirmationController
-    ) {
-        this.confirmationController =
-                confirmationController;
-    }
-
-    public void setCheckoutController(CheckoutController checkoutController) {
-        this.checkoutController = checkoutController;
-    }
-
-    public void setOrderDetailsController(
-            OrderDetailsController orderDetailsController
-    ) {
-        this.orderDetailsController =
-                orderDetailsController;
     }
 
     private String buildDeliveryAddress() {
