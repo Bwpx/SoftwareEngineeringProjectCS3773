@@ -7,8 +7,7 @@ import edu.softwareengineeringproject3773.view.LoginView;
 import edu.softwareengineeringprojectcs3773.ApplicationState;
 import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.Account;
-import edu.softwareengineeringprojectcs3773.repository.AccountRepository;
-
+import edu.softwareengineeringprojectcs3773.service.AccountService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,11 +23,11 @@ public class LoginController {
 
 
 	private LoginView loginView;
-	private AccountRepository accounts;
+	private AccountService accounts;
 
 	
 	public void initialize() throws URISyntaxException, IOException {
-		accounts = new AccountRepository();
+		accounts = new AccountService();
 		
 		loginView = new LoginView();
 		loginView.setCreateAccountButton(openRegisterButton);
@@ -57,9 +56,9 @@ public class LoginController {
 			return;
 		}
 
-		Account account = accounts.findByUsername(usernameOrEmail);
+		Account account = accounts.findAccountByUsername(usernameOrEmail);
 		if (account == null) {
-			account = accounts.findByEmail(usernameOrEmail);
+			account = accounts.findAccountByEmail(usernameOrEmail);
 		}
 
 		if (account == null || !account.getPassword().equals(password)) {
