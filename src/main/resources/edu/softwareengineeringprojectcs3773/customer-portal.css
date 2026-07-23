@@ -43,6 +43,51 @@
 .sidebar-user-name { -fx-text-fill: white; -fx-font-weight: 700; }
 .sidebar-user-email { -fx-text-fill: #B8C8DA; -fx-font-size: 11px; }
 
+
+/* Shared page header used by Browse, Cart, Checkout, and order screens. */
+.header {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 12;
+    -fx-padding: 18 28;
+    -fx-background-color: linear-gradient(to right, #0C2340, #1E4D7B);
+    -fx-border-color: transparent transparent #F15A22 transparent;
+    -fx-border-width: 0 0 3 0;
+}
+
+.header-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+}
+
+/* Header navigation buttons need stronger contrast than sidebar buttons. */
+.header .nav-button {
+    -fx-background-color: rgba(255,255,255,0.14);
+    -fx-text-fill: white;
+    -fx-alignment: CENTER;
+    -fx-padding: 9 18;
+    -fx-border-color: rgba(255,255,255,0.55);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.header .nav-button:hover {
+    -fx-background-color: #F15A22;
+    -fx-border-color: #F15A22;
+    -fx-text-fill: white;
+}
+
+.outline-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #0C2340;
+    -fx-text-fill: #0C2340;
+}
+
+.outline-button:hover {
+    -fx-background-color: #EAF2F8;
+}
+
 .topbar {
     -fx-background-color: white;
     -fx-border-color: transparent transparent -border transparent;
@@ -140,37 +185,6 @@
 .radio-button .radio { -fx-background-radius: 50; -fx-border-radius: 50; }
 
 
-.header {
-    -fx-alignment: CENTER_LEFT;
-    -fx-spacing: 12;
-    -fx-padding: 18 28;
-    -fx-background-color: linear-gradient(to right, #0C2340, #1E4D7B);
-    -fx-border-color: transparent transparent #F15A22 transparent;
-    -fx-border-width: 0 0 3 0;
-}
-
-.header-title {
-    -fx-font-size: 26px;
-    -fx-font-weight: 800;
-    -fx-text-fill: white;
-}
-
-.header .nav-button {
-    -fx-background-color: rgba(255,255,255,0.14);
-    -fx-text-fill: white;
-    -fx-alignment: CENTER;
-    -fx-padding: 9 18;
-    -fx-border-color: rgba(255,255,255,0.55);
-    -fx-border-width: 1;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-}
-
-.header .nav-button:hover {
-    -fx-background-color: #F15A22;
-    -fx-border-color: #F15A22;
-}
-
 .item-card{
     -fx-background-color: white;
     -fx-background-radius: 18;
@@ -183,11 +197,11 @@
         0.12,
         0,
         5
-    ):
+    );
 }
 
 .item-card:hover {
-    -fx-border-color: #F15A22
+    -fx-border-color: #F15A22;
     -fx-effect: dropshadow(
         gaussian,
         rgba(12, 35, 64, 0.16),
@@ -218,4 +232,92 @@
 .unavailable-label {
     -fx-text-fill: #C0392B;
     -fx-font-weight: 700;
+}
+/* Polished shared layouts for Home, Account, Order History, and Checkout. */
+.page-content {
+    -fx-padding: 26 30 32 30;
+    -fx-background-color: -background;
+}
+.header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #D9E5F1;
+}
+.action-card {
+    -fx-min-height: 190;
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: -border;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(16,24,40,0.07), 16, 0.10, 0, 4);
+}
+.action-card:hover {
+    -fx-border-color: -utsa-orange;
+    -fx-effect: dropshadow(gaussian, rgba(12,35,64,0.15), 20, 0.14, 0, 6);
+}
+.action-card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -utsa-navy;
+}
+.empty-state-text {
+    -fx-text-fill: -text-muted;
+    -fx-font-style: italic;
+    -fx-padding: 18 4;
+}
+.form-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: -text-muted;
+}
+.toolbar-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: -border;
+    -fx-padding: 16 18;
+}
+.info-strip {
+    -fx-background-color: -utsa-light-blue;
+    -fx-background-radius: 12;
+    -fx-padding: 12 15;
+}
+.step-badge {
+    -fx-min-width: 34;
+    -fx-min-height: 34;
+    -fx-alignment: center;
+    -fx-background-color: -utsa-orange;
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+}
+.checkout-summary-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: -border;
+    -fx-padding: 22;
+    -fx-effect: dropshadow(gaussian, rgba(16,24,40,0.10), 20, 0.14, 0, 6);
+}
+.summary-value {
+    -fx-font-weight: 700;
+    -fx-text-fill: -utsa-navy;
+}
+.checkout-action-button {
+    -fx-font-size: 15px;
+    -fx-padding: 13 18;
+}
+.checkout-message {
+    -fx-font-weight: 700;
+}
+.secure-note {
+    -fx-background-color: #F7FAFC;
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+    -fx-border-color: #E4EAF1;
+    -fx-border-radius: 12;
+}
+.table-view .placeholder .label {
+    -fx-text-fill: -text-muted;
+    -fx-font-style: italic;
 }
