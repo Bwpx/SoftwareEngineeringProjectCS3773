@@ -83,6 +83,10 @@ public class HelloApplication extends Application {
                             Object.class
                     );
 
+            /*
+             * Connect controller navigation and dependencies.
+             */
+
             LoadedScreen<OrderConfirmationController>
                     confirmationScreen =
                     loadScreen(
@@ -103,6 +107,10 @@ public class HelloApplication extends Application {
                             Object.class
                     );
 
+            /**
+             * Connects login-screen navigation.
+             */
+
             configureLoginController(
                     loginScreen.getController(),
                     primaryStage,
@@ -110,12 +118,20 @@ public class HelloApplication extends Application {
                     homeScreen.getScene()
             );
 
+            /**
+             * Connects cart-screen navigation.
+             */
+
             configureCartController(
                     cartScreen.getController(),
                     browseScreen.getScene(),
                     checkoutScreen.getScene(),
                     checkoutScreen.getController()
             );
+
+            /**
+             * Connects checkout-screen navigation and related controllers.
+             */
 
             configureCheckoutController(
                     checkoutScreen.getController(),
@@ -125,6 +141,10 @@ public class HelloApplication extends Application {
                     orderDetailsScreen.getController()
             );
 
+            /**
+             * Connects order-confirmation-screen navigation.
+             */
+
             configureConfirmationController(
                     confirmationScreen.getController(),
                     homeScreen.getScene(),
@@ -132,10 +152,18 @@ public class HelloApplication extends Application {
                     orderDetailsScreen.getController()
             );
 
+            /**
+             * Connects order-detail-screen navigation.
+             */
+
             configureOrderDetailsController(
                     orderDetailsScreen.getController(),
                     orderHistoryScreen.getScene()
             );
+
+            /**
+             * Applies the initial configuration to the main stage.
+             */
 
             configurePrimaryStage(
                     primaryStage,
@@ -152,6 +180,8 @@ public class HelloApplication extends Application {
             );
         }
     }
+
+
 
     private void configureLoginController(
             LoginController loginController,
@@ -263,6 +293,11 @@ public class HelloApplication extends Application {
                             + ". Check the fx:controller value."
             );
         }
+
+        /*
+         * Object.class is used temporarily for controllers that
+         * do not yet need to be accessed by HelloApplication.
+         */
 
         T controller;
 
