@@ -15,174 +15,139 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.StackPane?>
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.softwareengineeringproject3773.controller.CheckoutController"
-            prefWidth="1220.0"
-            prefHeight="840.0"
+            prefWidth="1220.0" prefHeight="840.0"
             stylesheets="@customer-portal.css"
-            styleClass="page">
+            styleClass="app-root">
 
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="header">
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="header">
+            <StackPane minWidth="46" minHeight="46" maxWidth="46" maxHeight="46" styleClass="brand-mark">
+                <Label text="UTSA" styleClass="brand-mark-text"/>
+            </StackPane>
             <Label text="Checkout" styleClass="header-title"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button fx:id="backToCartButton"
-                    text="Back to Cart"
-                    styleClass="nav-button"/>
+            <Button fx:id="backToCartButton" text="Back to Cart" styleClass="nav-button"/>
         </HBox>
     </top>
 
     <center>
-        <ScrollPane fitToWidth="true" pannable="true">
+        <ScrollPane fitToWidth="true" pannable="true" styleClass="screen-scroll">
             <content>
-                <GridPane hgap="22.0" vgap="18.0" styleClass="content">
+                <GridPane hgap="22.0" vgap="18.0" styleClass="page-content">
                     <columnConstraints>
                         <ColumnConstraints percentWidth="64.0"/>
                         <ColumnConstraints percentWidth="36.0"/>
                     </columnConstraints>
 
-                    <VBox spacing="18.0" GridPane.columnIndex="0">
-                        <GridPane hgap="14.0" vgap="12.0" styleClass="card">
-                            <columnConstraints>
-                                <ColumnConstraints percentWidth="50.0"/>
-                                <ColumnConstraints percentWidth="50.0"/>
-                            </columnConstraints>
-
-                            <Label text="Delivery Address"
-                                   styleClass="card-title"
-                                   GridPane.columnSpan="2"/>
-
-                            <Label text="Full Name"
-                                   GridPane.rowIndex="1"/>
-                            <TextField fx:id="checkoutNameField"
-                                       promptText="Full name"
-                                       GridPane.rowIndex="2"/>
-
-                            <Label text="Phone"
-                                   GridPane.columnIndex="1"
-                                   GridPane.rowIndex="1"/>
-                            <TextField fx:id="checkoutPhoneField"
-                                       promptText="Phone number"
-                                       GridPane.columnIndex="1"
-                                       GridPane.rowIndex="2"/>
-
-                            <Label text="Street Address"
-                                   GridPane.rowIndex="3"/>
-                            <TextField fx:id="streetField"
-                                       promptText="Street address"
-                                       GridPane.rowIndex="4"
-                                       GridPane.columnSpan="2"/>
-
-                            <Label text="City"
-                                   GridPane.rowIndex="5"/>
-                            <TextField fx:id="cityField"
-                                       promptText="City"
-                                       GridPane.rowIndex="6"/>
-
-                            <Label text="State"
-                                   GridPane.columnIndex="1"
-                                   GridPane.rowIndex="5"/>
-                            <TextField fx:id="stateField"
-                                       promptText="TX"
-                                       GridPane.columnIndex="1"
-                                       GridPane.rowIndex="6"/>
-
-                            <Label text="ZIP Code"
-                                   GridPane.rowIndex="7"/>
-                            <TextField fx:id="zipField"
-                                       promptText="78249"
-                                       GridPane.rowIndex="8"/>
-
-                            <CheckBox fx:id="saveAddressCheckBox"
-                                      text="Save this address"
-                                      GridPane.columnIndex="1"
-                                      GridPane.rowIndex="8"/>
-                        </GridPane>
-
-                        <VBox spacing="10.0" styleClass="card">
-                            <Label text="Delivery Method" styleClass="card-title"/>
-                            <Label text="Choose how you want to receive your order." styleClass="muted-label"/>
-                            <ComboBox fx:id="deliveryMethodComboBox"
-                                      promptText="Select delivery method"
-                                      maxWidth="1.7976931348623157E308"/>
+                    <VBox spacing="18" GridPane.columnIndex="0">
+                        <VBox spacing="14" styleClass="card">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="1" styleClass="step-badge"/>
+                                <VBox spacing="2">
+                                    <Label text="Delivery Address" styleClass="section-title-small"/>
+                                    <Label text="Where should we send your order?" styleClass="muted-text"/>
+                                </VBox>
+                            </HBox>
+                            <Separator/>
+                            <GridPane hgap="14" vgap="10">
+                                <columnConstraints>
+                                    <ColumnConstraints percentWidth="50"/>
+                                    <ColumnConstraints percentWidth="50"/>
+                                </columnConstraints>
+                                <Label text="Full Name" styleClass="field-label"/>
+                                <Label text="Phone Number" GridPane.columnIndex="1" styleClass="field-label"/>
+                                <TextField fx:id="checkoutNameField" promptText="Full name" GridPane.rowIndex="1"/>
+                                <TextField fx:id="checkoutPhoneField" promptText="(210) 555-0123" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                <Label text="Street Address" GridPane.rowIndex="2" GridPane.columnSpan="2" styleClass="field-label"/>
+                                <TextField fx:id="streetField" promptText="Street address" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+                                <Label text="City" GridPane.rowIndex="4" styleClass="field-label"/>
+                                <Label text="State" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="field-label"/>
+                                <TextField fx:id="cityField" promptText="City" GridPane.rowIndex="5"/>
+                                <TextField fx:id="stateField" promptText="TX" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                                <Label text="ZIP Code" GridPane.rowIndex="6" styleClass="field-label"/>
+                                <TextField fx:id="zipField" promptText="78249" GridPane.rowIndex="7"/>
+                                <CheckBox fx:id="saveAddressCheckBox" text="Save this address for later" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                            </GridPane>
                         </VBox>
 
-                        <VBox spacing="12.0" styleClass="card">
-                            <Label text="Payment Information" styleClass="card-title"/>
+                        <VBox spacing="14" styleClass="card">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="2" styleClass="step-badge"/>
+                                <VBox spacing="2">
+                                    <Label text="Delivery Method" styleClass="section-title-small"/>
+                                    <Label text="Choose the option that works best for you." styleClass="muted-text"/>
+                                </VBox>
+                            </HBox>
+                            <Separator/>
+                            <Label text="Delivery Option" styleClass="field-label"/>
+                            <ComboBox fx:id="deliveryMethodComboBox" promptText="Select delivery method" maxWidth="1.7976931348623157E308"/>
+                        </VBox>
 
-                            <Label text="Payment Method"/>
-                            <ComboBox fx:id="paymentMethodComboBox"
-                                      promptText="Select payment method"
-                                      maxWidth="1.7976931348623157E308"/>
-
-                            <Label text="Card Number"/>
-                            <TextField fx:id="cardNumberField"
-                                       promptText="0000 0000 0000 0000"/>
-
-                            <GridPane hgap="12.0" vgap="10.0">
+                        <VBox spacing="14" styleClass="card">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="3" styleClass="step-badge"/>
+                                <VBox spacing="2">
+                                    <Label text="Payment Information" styleClass="section-title-small"/>
+                                    <Label text="Your card information is required to place the order." styleClass="muted-text"/>
+                                </VBox>
+                            </HBox>
+                            <Separator/>
+                            <Label text="Payment Method" styleClass="field-label"/>
+                            <ComboBox fx:id="paymentMethodComboBox" promptText="Select payment method" maxWidth="1.7976931348623157E308"/>
+                            <Label text="Card Number" styleClass="field-label"/>
+                            <TextField fx:id="cardNumberField" promptText="0000 0000 0000 0000"/>
+                            <GridPane hgap="14" vgap="10">
                                 <columnConstraints>
-                                    <ColumnConstraints percentWidth="50.0"/>
-                                    <ColumnConstraints percentWidth="50.0"/>
+                                    <ColumnConstraints percentWidth="50"/>
+                                    <ColumnConstraints percentWidth="50"/>
                                 </columnConstraints>
-
-                                <Label text="Expiration"/>
-                                <Label text="CVV" GridPane.columnIndex="1"/>
-
-                                <TextField fx:id="expirationField"
-                                           promptText="MM/YY"
-                                           GridPane.rowIndex="1"/>
-                                <PasswordField fx:id="cvvField"
-                                               promptText="CVV"
-                                               GridPane.columnIndex="1"
-                                               GridPane.rowIndex="1"/>
+                                <Label text="Expiration" styleClass="field-label"/>
+                                <Label text="CVV" GridPane.columnIndex="1" styleClass="field-label"/>
+                                <TextField fx:id="expirationField" promptText="MM/YY" GridPane.rowIndex="1"/>
+                                <PasswordField fx:id="cvvField" promptText="CVV" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                             </GridPane>
+                            <Label text="Payment information is currently used for demonstration purposes only." wrapText="true" styleClass="form-hint"/>
                         </VBox>
                     </VBox>
 
-                    <VBox spacing="14.0"
-                          styleClass="card"
-                          GridPane.columnIndex="1">
-                        <Label text="Order Summary" styleClass="card-title"/>
-                        <Label text="2 items" styleClass="muted-label"/>
+                    <VBox spacing="15" styleClass="checkout-summary-card" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                        <VBox spacing="3">
+                            <Label text="Order Summary" styleClass="section-title"/>
+                            <Label text="Review all charges before placing your order." wrapText="true" styleClass="muted-text"/>
+                        </VBox>
                         <Separator/>
-
                         <HBox alignment="CENTER_LEFT">
                             <Label text="Subtotal"/>
                             <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="checkoutSubtotalLabel" text=""/>
+                            <Label fx:id="checkoutSubtotalLabel" text="" styleClass="summary-value"/>
                         </HBox>
-
                         <HBox alignment="CENTER_LEFT">
                             <Label text="Delivery"/>
                             <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="deliveryFeeLabel" text=""/>
+                            <Label fx:id="deliveryFeeLabel" text="" styleClass="summary-value"/>
                         </HBox>
-
                         <HBox alignment="CENTER_LEFT">
-                            <Label text="Tax"/>
+                            <Label text="Estimated Tax"/>
                             <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="checkoutTaxLabel" text=""/>
+                            <Label fx:id="checkoutTaxLabel" text="" styleClass="summary-value"/>
                         </HBox>
-
                         <Separator/>
-
                         <HBox alignment="CENTER_LEFT">
-                            <Label text="Total" styleClass="section-title"/>
+                            <Label text="Order Total" styleClass="summary-total-label"/>
                             <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="checkoutTotalLabel"
-                                   text=""
-                                   styleClass="price-label"/>
+                            <Label fx:id="checkoutTotalLabel" text="" styleClass="summary-total-value"/>
                         </HBox>
-
-                        <Button fx:id="placeOrderButton"
-                                text="Place Order"
-                                maxWidth="1.7976931348623157E308"
-                                styleClass="primary-button"/>
-
-                        <Label fx:id="checkoutMessageLabel"
-                               text=""
-                               wrapText="true"/>
+                        <Button fx:id="placeOrderButton" text="Place Order" maxWidth="1.7976931348623157E308" styleClass="accent-button checkout-action-button"/>
+                        <Label fx:id="checkoutMessageLabel" text="" wrapText="true" styleClass="checkout-message"/>
+                        <VBox spacing="5" styleClass="secure-note">
+                            <Label text="Before you continue" styleClass="field-label"/>
+                            <Label text="Verify your address, delivery method, and payment details. Your cart will only be cleared after the order is successfully placed."
+                                   wrapText="true" styleClass="form-hint"/>
+                        </VBox>
                     </VBox>
                 </GridPane>
             </content>

@@ -7,23 +7,74 @@
             fx:controller="edu.softwareengineeringproject3773.controller.HomeController"
             prefWidth="1200" prefHeight="760" stylesheets="@customer-portal.css" styleClass="app-root">
   <top>
-    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="topbar">
-      <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
-      <StackPane minWidth="46" minHeight="46" maxWidth="46" maxHeight="46" styleClass="brand-mark"><Label text="UTSA" styleClass="brand-mark-text"/></StackPane>
-      <VBox spacing="2"><Label text="Customer Portal Home" styleClass="page-title"/><Label text="Roadrunner Marketplace" styleClass="page-subtitle"/></VBox>
+    <HBox alignment="CENTER_LEFT" spacing="14" styleClass="header">
+      <StackPane minWidth="46" minHeight="46" maxWidth="46" maxHeight="46" styleClass="brand-mark">
+        <Label text="UTSA" styleClass="brand-mark-text"/>
+      </StackPane>
+      <VBox spacing="2">
+        <Label text="Roadrunner MarketPlace" styleClass="header-title"/>
+        <Label text="Your shopping dashboard" styleClass="header-subtitle"/>
+      </VBox>
+      <Region HBox.hgrow="ALWAYS"/>
+      <Button fx:id="logoutButton" text="Log Out" styleClass="nav-button"/>
     </HBox>
   </top>
+
   <center>
-    <VBox spacing="20">
-      <padding><Insets top="24" right="28" bottom="28" left="28"/></padding>
-      <HBox alignment="CENTER_LEFT"><VBox><Label fx:id="welcomeLabel" text="Welcome, Alex!" styleClass="detail-title"/><Label text="Browse products, manage your cart, and review orders." styleClass="page-subtitle"/></VBox><Region HBox.hgrow="ALWAYS"/><Button fx:id="logoutButton" text="Log Out" styleClass="secondary-button"/></HBox>
-      <TilePane hgap="18" vgap="18" prefColumns="4">
-        <VBox spacing="10" styleClass="card"><Label text="Browse Items" styleClass="section-title-small"/><Label text="Search products by item name or description." wrapText="true"/><Button fx:id="browseItemsButton" text="Browse" styleClass="primary-button"/></VBox>
-        <VBox spacing="10" styleClass="card"><Label text="Shopping Cart" styleClass="section-title-small"/><Label text="View, add, update, or delete cart items." wrapText="true"/><Button fx:id="viewCartButton" text="Open Cart" styleClass="accent-button"/></VBox>
-        <VBox spacing="10" styleClass="card"><Label text="Order History" styleClass="section-title-small"/><Label text="Sort past orders by date or total amount." wrapText="true"/><Button fx:id="ordersButton" text="View Orders" styleClass="primary-button"/></VBox>
-        <VBox spacing="10" styleClass="card"><Label text="My Account" styleClass="section-title-small"/><Label text="Update customer information and addresses." wrapText="true"/><Button fx:id="accountButton" text="Manage Account" styleClass="primary-button"/></VBox>
-      </TilePane>
-      <VBox spacing="12" styleClass="card"><Label text="Featured Items" styleClass="section-title"/><TilePane fx:id="featuredItemsPane" hgap="16" vgap="16" prefColumns="3"><Label text="Featured products load here." styleClass="muted-text"/></TilePane></VBox>
-    </VBox>
+    <ScrollPane fitToWidth="true" styleClass="screen-scroll">
+      <content>
+        <VBox spacing="22" styleClass="page-content">
+          <VBox spacing="8" styleClass="hero-card">
+            <Label fx:id="welcomeLabel" text="Welcome!" styleClass="hero-title"/>
+            <Label text="Find what you need, manage your cart, and keep track of every order in one place."
+                   wrapText="true" styleClass="hero-text"/>
+          </VBox>
+
+          <VBox spacing="12">
+            <Label text="Quick Actions" styleClass="section-title"/>
+            <TilePane hgap="18" vgap="18" prefColumns="4" tileAlignment="TOP_LEFT">
+              <VBox spacing="12" prefWidth="250" styleClass="action-card">
+                <Label text="Browse Items" styleClass="action-card-title"/>
+                <Label text="Search and filter the full product catalog." wrapText="true" styleClass="muted-text"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button fx:id="browseItemsButton" text="Browse Products" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
+              </VBox>
+              <VBox spacing="12" prefWidth="250" styleClass="action-card">
+                <Label text="Shopping Cart" styleClass="action-card-title"/>
+                <Label text="Review quantities, discounts, and your current total." wrapText="true" styleClass="muted-text"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button fx:id="viewCartButton" text="Open Cart" maxWidth="1.7976931348623157E308" styleClass="accent-button"/>
+              </VBox>
+              <VBox spacing="12" prefWidth="250" styleClass="action-card">
+                <Label text="Order History" styleClass="action-card-title"/>
+                <Label text="Review previous purchases and delivery status." wrapText="true" styleClass="muted-text"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button fx:id="ordersButton" text="View Orders" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
+              </VBox>
+              <VBox spacing="12" prefWidth="250" styleClass="action-card">
+                <Label text="My Account" styleClass="action-card-title"/>
+                <Label text="Update your profile and manage saved addresses." wrapText="true" styleClass="muted-text"/>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button fx:id="accountButton" text="Manage Account" maxWidth="1.7976931348623157E308" styleClass="primary-button"/>
+              </VBox>
+            </TilePane>
+          </VBox>
+
+          <VBox spacing="14" styleClass="card">
+            <HBox alignment="CENTER_LEFT">
+              <VBox spacing="3">
+                <Label text="Featured Items" styleClass="section-title"/>
+                <Label text="Popular products and recommendations will appear here." styleClass="muted-text"/>
+              </VBox>
+              <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <Separator/>
+            <TilePane fx:id="featuredItemsPane" hgap="16" vgap="16" prefColumns="3">
+              <Label text="Featured products load here." styleClass="empty-state-text"/>
+            </TilePane>
+          </VBox>
+        </VBox>
+      </content>
+    </ScrollPane>
   </center>
 </BorderPane>
