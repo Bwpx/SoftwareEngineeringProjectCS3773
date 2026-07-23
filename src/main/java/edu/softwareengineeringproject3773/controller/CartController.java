@@ -75,6 +75,8 @@ public class CartController {
     private Scene browseScene;
     private Scene checkoutScene;
 
+    private CheckoutController checkoutController;
+
     @FXML
     private void initialize() {
         configureColumns();
@@ -440,6 +442,10 @@ public class CartController {
             return;
         }
 
+        if (checkoutController != null) {
+            checkoutController.refreshCheckout();
+        }
+
         /*
          * Database integration:
          *
@@ -570,5 +576,11 @@ public class CartController {
 
     public void setCheckoutScene(Scene checkoutScene) {
         this.checkoutScene = checkoutScene;
+    }
+
+    public void setCheckoutController(
+            CheckoutController checkoutController
+    ) {
+        this.checkoutController = checkoutController;
     }
 }

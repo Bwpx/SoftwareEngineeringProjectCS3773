@@ -54,6 +54,7 @@ public class HelloApplication extends Application {
         FXMLLoader historyLoader = new FXMLLoader(getURL("order-history-screen.fxml"));
         Scene historyScene = new Scene(historyLoader.load());
 
+
         loginController.setStage(stage);
         loginController.setRegisterScene(registerScene);
         loginController.setHomeScene(homeScene);

@@ -26,9 +26,19 @@
                             <ColumnConstraints percentWidth="50.0"/>
                             <ColumnConstraints percentWidth="50.0"/>
                         </columnConstraints>
-                        <Label text="Order #UTSA-000001" styleClass="card-title" GridPane.columnSpan="2"/>
-                        <Label text="Order Date: July 17, 2026" GridPane.rowIndex="1"/>
-                        <Label text="Status: Processing" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label fx:id="orderNumberLabel"
+                               text=""
+                               styleClass="card-title"
+                               GridPane.columnSpan="2"/>
+
+                        <Label fx:id="orderDateLabel"
+                               text=""
+                               GridPane.rowIndex="1"/>
+
+                        <Label fx:id="orderStatusLabel"
+                               text=""
+                               GridPane.columnIndex="1"
+                               GridPane.rowIndex="1"/>
                     </GridPane>
                     <VBox spacing="12.0" styleClass="card">
                         <Label text="Items" styleClass="card-title"/>
@@ -53,8 +63,17 @@
                         </VBox>
                         <VBox spacing="8.0" styleClass="card" GridPane.columnIndex="1">
                             <Label text="Summary" styleClass="card-title"/>
-                            <HBox><Label text="Subtotal" HBox.hgrow="ALWAYS"/><Label text=""/></HBox>
-                            <HBox><Label text="Tax" HBox.hgrow="ALWAYS"/><Label text=""/></HBox>
+                            <HBox>
+                                <Label text="Subtotal" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="orderDetailSubtotalLabel"
+                                       text=""/>
+                            </HBox>
+
+                            <HBox>
+                                <Label text="Tax" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="orderDetailTaxLabel"
+                                       text=""/>
+                            </HBox>
                             <Separator/>
                             <HBox><Label text="Total" styleClass="section-title" HBox.hgrow="ALWAYS"/><Label fx:id="orderDetailTotalLabel" text="" styleClass="price-label"/></HBox>
                         </VBox>
