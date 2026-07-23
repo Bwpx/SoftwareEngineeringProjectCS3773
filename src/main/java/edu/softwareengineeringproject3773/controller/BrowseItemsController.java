@@ -1,6 +1,7 @@
 package edu.softwareengineeringproject3773.controller;
 
 import edu.softwareengineeringprojectcs3773.ApplicationState;
+import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.GroceryItem;
 import edu.softwareengineeringprojectcs3773.service.ItemService;
 import edu.softwareengineeringprojectcs3773.model.Cart;
@@ -205,17 +206,17 @@ public class BrowseItemsController {
 
     @FXML
     private void handleHome() {
-        System.out.println("Open home");
+        SceneNavigator.showHome();
     }
 
     @FXML
     private void handleCart() {
-        System.out.println("Open cart");
+        SceneNavigator.showCart();
     }
 
     @FXML
     private void handleOrders() {
-        System.out.println("Open order history");
+        SceneNavigator.showOrderHistory();
     }
 
 }
