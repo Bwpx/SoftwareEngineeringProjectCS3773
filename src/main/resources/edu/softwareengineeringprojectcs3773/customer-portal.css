@@ -44,21 +44,7 @@
 .sidebar-user-email { -fx-text-fill: #B8C8DA; -fx-font-size: 11px; }
 
 
-/* Shared page header used by Browse, Cart, Checkout, and order screens. */
-.header {
-    -fx-alignment: CENTER_LEFT;
-    -fx-spacing: 12;
-    -fx-padding: 18 28;
-    -fx-background-color: linear-gradient(to right, #0C2340, #1E4D7B);
-    -fx-border-color: transparent transparent #F15A22 transparent;
-    -fx-border-width: 0 0 3 0;
-}
 
-.header-title {
-    -fx-font-size: 26px;
-    -fx-font-weight: 800;
-    -fx-text-fill: white;
-}
 
 /* Header navigation buttons need stronger contrast than sidebar buttons. */
 .header .nav-button {
@@ -320,4 +306,19 @@
 .table-view .placeholder .label {
     -fx-text-fill: -text-muted;
     -fx-font-style: italic;
+}
+/* Shared page header used by Browse, Cart, Checkout, and order screens. */
+.header {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 12;
+    -fx-padding: 18 28;
+    -fx-background-color: linear-gradient(to right, #0C2340, #1E4D7B);
+    -fx-border-color: transparent transparent #F15A22 transparent;
+    -fx-border-width: 0 0 3 0;
+}
+
+.header-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
 }
