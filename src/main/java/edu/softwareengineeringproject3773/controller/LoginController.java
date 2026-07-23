@@ -25,6 +25,8 @@ public class LoginController {
 	Scene homeScene;
 	LoginView loginView;
 	AccountRepository accounts;
+
+	private HomeController homeController;
 	
 	public void initialize() throws URISyntaxException, IOException {
 		accounts = new AccountRepository();
@@ -52,6 +54,12 @@ public class LoginController {
 	public void setHomeScene(Scene homeScene) {
 		this.homeScene = homeScene;
 	}
+
+	public void setHomeController(
+			HomeController homeController ) {
+		this.homeController = homeController;
+	}
+
 	
 	public void createAccountAction(ActionEvent event) {
 		Button button = (Button) (event.getTarget());
