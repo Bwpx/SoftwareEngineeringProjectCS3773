@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
             DatabaseInitializer.initializeDatabase();
 
             SceneNavigator.initialize(primaryStage);
-            SceneNavigator.showLogin();
+            SceneNavigator.showHome();
 
         } catch (Exception exception) {
             exception.printStackTrace();
