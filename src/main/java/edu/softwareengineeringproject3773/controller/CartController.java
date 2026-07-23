@@ -1,13 +1,13 @@
 package edu.softwareengineeringproject3773.controller;
 
 import edu.softwareengineeringprojectcs3773.ApplicationState;
+import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.Cart;
 import edu.softwareengineeringprojectcs3773.model.CartItem;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -16,7 +16,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 
 public class CartController {
@@ -72,10 +71,6 @@ public class CartController {
     @FXML
     private Button checkoutButton;
 
-    private Scene browseScene;
-    private Scene checkoutScene;
-
-    private CheckoutController checkoutController;
 
     @FXML
     private void initialize() {
@@ -411,15 +406,7 @@ public class CartController {
 
     @FXML
     private void handleContinueShopping() {
-        if (browseScene == null) {
-            showMessage(
-                    "Browse navigation has not been connected yet.",
-                    true
-            );
-            return;
-        }
-
-        getStage().setScene(browseScene);
+        SceneNavigator.showBrowseItems();
     }
 
     @FXML
@@ -434,18 +421,6 @@ public class CartController {
             return;
         }
 
-        if (checkoutScene == null) {
-            showMessage(
-                    "Checkout navigation has not been connected yet.",
-                    true
-            );
-            return;
-        }
-
-        if (checkoutController != null) {
-            checkoutController.refreshCheckout();
-        }
-
         /*
          * Database integration:
          *
@@ -456,7 +431,8 @@ public class CartController {
          * confirms checkout.
          */
 
-        getStage().setScene(checkoutScene);
+        SceneNavigator.showCheckout();
+
     }
 
     public void refreshCart() {
@@ -535,12 +511,6 @@ public class CartController {
         return ApplicationState.getCurrentCart();
     }
 
-    private Stage getStage() {
-        return (Stage) cartTable
-                .getScene()
-                .getWindow();
-    }
-
     private String formatMoney(double amount) {
         return String.format("$%.2f", amount);
     }
@@ -570,17 +540,4 @@ public class CartController {
         cartMessageLabel.setText("");
     }
 
-    public void setBrowseScene(Scene browseScene) {
-        this.browseScene = browseScene;
-    }
-
-    public void setCheckoutScene(Scene checkoutScene) {
-        this.checkoutScene = checkoutScene;
-    }
-
-    public void setCheckoutController(
-            CheckoutController checkoutController
-    ) {
-        this.checkoutController = checkoutController;
-    }
 }

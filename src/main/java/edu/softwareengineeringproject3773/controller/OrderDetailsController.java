@@ -1,17 +1,16 @@
 package edu.softwareengineeringproject3773.controller;
 
+import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.CartItem;
 import edu.softwareengineeringprojectcs3773.model.GroceryItem;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -62,7 +61,6 @@ public class OrderDetailsController {
     @FXML
     private Label orderDetailTotalLabel;
 
-    private Scene orderHistoryScene;
 
     /*
      * Temporary in-memory order information.
@@ -280,14 +278,7 @@ public class OrderDetailsController {
 
     @FXML
     private void handleBackToHistory() {
-        if (orderHistoryScene == null) {
-            System.err.println(
-                    "Order history navigation has not been connected."
-            );
-            return;
-        }
-
-        getStage().setScene(orderHistoryScene);
+        SceneNavigator.showOrderHistory();
     }
 
     public void clearOrderDetails() {
@@ -322,11 +313,6 @@ public class OrderDetailsController {
         }
     }
 
-    private Stage getStage() {
-        return (Stage) backToHistoryButton
-                .getScene()
-                .getWindow();
-    }
 
     private String safeText(String value) {
         return value == null ? "" : value;
@@ -336,11 +322,6 @@ public class OrderDetailsController {
         return String.format("$%.2f", amount);
     }
 
-    public void setOrderHistoryScene(
-            Scene orderHistoryScene
-    ) {
-        this.orderHistoryScene = orderHistoryScene;
-    }
 
     public String getOrderNumber() {
         return orderNumber;
