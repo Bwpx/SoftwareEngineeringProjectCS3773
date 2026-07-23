@@ -19,13 +19,61 @@
         <padding><Insets top="26" right="28" bottom="26" left="28"/></padding>
         <Label text="Register for a Customer Account" styleClass="section-title"/>
         <GridPane hgap="12" vgap="10">
-          <columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints>
-          <Label text="First Name" styleClass="field-label"/><Label text="Last Name" styleClass="field-label" GridPane.columnIndex="1"/>
-          <TextField fx:id="firstNameField" promptText="First name" GridPane.rowIndex="1"/><TextField fx:id="lastNameField" promptText="Last name" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-          <Label text="Email" styleClass="field-label" GridPane.rowIndex="2"/><Label text="Username" styleClass="field-label" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-          <TextField fx:id="emailField" promptText="name@example.com" GridPane.rowIndex="3"/><TextField fx:id="usernameField" promptText="Choose a username" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-          <Label text="Password" styleClass="field-label" GridPane.rowIndex="4"/><Label text="Confirm Password" styleClass="field-label" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-          <PasswordField fx:id="passwordField" promptText="Create password" GridPane.rowIndex="5"/><PasswordField fx:id="confirmPasswordField" promptText="Confirm password" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+          <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+          </columnConstraints>
+          <Label text="First Name" styleClass="field-label"/>
+          <Label text="Last Name" styleClass="field-label" GridPane.columnIndex="1"/>
+          <TextField fx:id="firstNameField"
+                     promptText="First name"
+                     GridPane.rowIndex="1"/>
+
+          <TextField fx:id="lastNameField"
+                     promptText="Last name"
+                     GridPane.columnIndex="1"
+                     GridPane.rowIndex="1"/>
+          <Label text="Email"
+                 styleClass="field-label"
+                 GridPane.rowIndex="2"/>
+
+          <Label text="Phone Number"
+                 styleClass="field-label"
+                 GridPane.columnIndex="1"
+                 GridPane.rowIndex="2"/>
+          <TextField fx:id="emailField"
+                     promptText="name@example.com"
+                     GridPane.rowIndex="3"/>
+
+          <TextField fx:id="phoneNumberField"
+                     promptText="(210) 555-5555"
+                     GridPane.columnIndex="1"
+                     GridPane.rowIndex="3"/>
+          <Label text="Username"
+                 styleClass="field-label"
+                 GridPane.rowIndex="4"
+                 GridPane.columnSpan="2"/>
+          <TextField fx:id="usernameField"
+                     promptText="Choose a username"
+                     GridPane.rowIndex="5"
+                     GridPane.columnSpan="2"
+                     maxWidth="Infinity"/>
+          <Label text="Password"
+                 styleClass="field-label"
+                 GridPane.rowIndex="6"/>
+
+          <Label text="Confirm Password"
+                 styleClass="field-label"
+                 GridPane.columnIndex="1"
+                 GridPane.rowIndex="6"/>
+          <PasswordField fx:id="passwordField"
+                         promptText="Create password"
+                         GridPane.rowIndex="7"/>
+
+          <PasswordField fx:id="confirmPasswordField"
+                         promptText="Confirm password"
+                         GridPane.columnIndex="1"
+                         GridPane.rowIndex="7"/>
         </GridPane>
         <Label fx:id="registerMessageLabel" text="" styleClass="error-label"/>
         <Button fx:id="registerButton" text="Create Account" maxWidth="Infinity" styleClass="accent-button"/>
