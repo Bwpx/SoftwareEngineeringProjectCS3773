@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import edu.softwareengineeringproject3773.controller.LoginController;
-import edu.softwareengineeringproject3773.controller.CartController;
 
 public class HelloApplication extends Application {
     @Override
