@@ -5,6 +5,8 @@ import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.Account;
 import edu.softwareengineeringprojectcs3773.model.Cart;
 import edu.softwareengineeringprojectcs3773.model.CartItem;
+import edu.softwareengineeringprojectcs3773.model.Order;
+import edu.softwareengineeringprojectcs3773.repository.OrderRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -12,6 +14,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,8 @@ public class CheckoutController {
     private static final double STORE_PICKUP_FEE = 0.00;
 
     private CheckoutController checkoutController;
+    private OrderRepository orders;
+    private Account account;
 
     @FXML
     private Button backToCartButton;
@@ -99,6 +105,7 @@ public class CheckoutController {
 
     @FXML
     private void initialize() {
+    	orders = new OrderRepository();
         configureDeliveryMethods();
         configurePaymentMethods();
         configureActions();
@@ -195,7 +202,7 @@ public class CheckoutController {
     }
 
     private void loadCurrentAccount() {
-        Account account =
+        account =
                 ApplicationState.getCurrentAccount();
 
         if (account == null) {
@@ -432,7 +439,8 @@ public class CheckoutController {
 
 
             cart.clear();
-
+            Date date = java.sql.Date.valueOf("2026-07-24");
+            Order order = orders.save(new Order(Integer.valueOf(finalOrderNumber), account.getAccountId(), date, finalOrderTotal, "In Progress", finalDeliveryMethod, "None"));
             SceneNavigator.showScene(
                     "order-confirmation-screen.fxml",
                     (OrderConfirmationController controller) -> {
@@ -456,6 +464,7 @@ public class CheckoutController {
                         );
                     }
             );
+            
 
         } catch (Exception exception) {
             showMessage(

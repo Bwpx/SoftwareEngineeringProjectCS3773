@@ -1,15 +1,17 @@
 package edu.softwareengineeringprojectcs3773.model;
 
+import java.sql.Date;
+
 public class Order {
 	private int orderId;
 	private int accountId;
-	private String date;
+	private Date date;
 	private double total;
 	private String status;
 	private String deliveryType;
 	private String actions;
 	
-	public Order(int orderId, int accountId, String date, double total, String status, String deliveryType, String actions) {
+	public Order(int orderId, int accountId, Date date, double total, String status, String deliveryType, String actions) {
 		this.orderId = orderId;
 		this.accountId = accountId;
 		this.date = date;
@@ -19,11 +21,15 @@ public class Order {
 		this.actions = actions;
 	}
 	
+	public int getOrderId() {
+		return orderId;
+	}
+	
 	public int getAccountId() {
 		return accountId;
 	}
 	
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	
