@@ -9,7 +9,7 @@ public class DatabaseInitializer {
     public static void initializeDatabase() {
         createAccountsTable();
         createGroceryItemsTable();
-        //createOrdersTable();
+        createOrdersTable();
     }
 
     private static void createAccountsTable() {
@@ -62,12 +62,13 @@ public class DatabaseInitializer {
     	String sql = """
     			CREATE TABLE IF NOT EXISTS orders (
     				order_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    				account_id INTEGER FOREIGN KEY,
+    				account_id INTEGER,
     				date DATE NOT NULL,
     				total INTEGER NOT NULL,
     				status TEXT NOT NULL,
     				delivery_type TEXT NOT NULL,
-    				actions TEXT NULL
+    				actions TEXT NULL,
+    				CONSTRAINT Account_ID_FK FOREIGN KEY (account_id) REFERENCES accounts(account_id)
     			);
     			""";
     	
