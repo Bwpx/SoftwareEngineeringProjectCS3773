@@ -14,6 +14,7 @@ public class HelloApplication extends Application {
             //AccountService accounts = new AccountService();
 
             SceneNavigator.initialize(primaryStage);
+            //SceneNavigator.showLogin();
             SceneNavigator.showHome();
 
         } catch (Exception exception) {

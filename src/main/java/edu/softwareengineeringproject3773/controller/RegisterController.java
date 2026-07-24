@@ -13,7 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class RegisterController {
-	@FXML TextField firstNameField, lastNameField, emailField, usernameField;
+	@FXML TextField firstNameField, lastNameField, emailField, usernameField, phoneNumberField;
 	@FXML PasswordField passwordField, confirmPasswordField;
 	@FXML Button registerButton, backToLoginButton;
 	@FXML Label registerMessageLabel;
@@ -31,27 +31,39 @@ public class RegisterController {
 		String firstName = firstNameField.getText(), lastName = lastNameField.getText();
 		String email = emailField.getText(), username = usernameField.getText();
 		String password = passwordField.getText(), confirmPassword = confirmPasswordField.getText();
+		String phoneNumber = phoneNumberField.getText();
 		
 		if(firstName.isEmpty() || lastName.isEmpty()) {
-			registerMessageLabel.setText("Please fill in your full name.");
-		}else if(email.isEmpty() || username.isEmpty()) {
-			registerMessageLabel.setText("Please fill in your email and username.");
+			registerMessageLabel.setText("First and last name fields are required.");
+			return;
+		}else if(email.isEmpty() || phoneNumber.isEmpty()) {
+			registerMessageLabel.setText("Email and phone number fields are required.");
+			return;
+		}else if(username.isEmpty()) {
+			registerMessageLabel.setText("Username field is required.");
+			return;
 		}else if(password.isEmpty() || confirmPassword.isEmpty()) {
-			registerMessageLabel.setText("Please fill in your password.");
+			registerMessageLabel.setText("Password field is required.");
+			return;
 		}
 		
-		Account account = accounts.findAccountByEmail(email);
-		if(account != null) {
+		if(accounts.findAccountByEmail(email) != null) {
 			registerMessageLabel.setText("An account with this email already exists.");
+			return;
 		}else if(accounts.findAccountByUsername(username) != null) {
 			registerMessageLabel.setText("An account with this username already exists.");
-		}else if(!(password.matches(confirmPassword))){
-			registerMessageLabel.setText("The password and confirmation password do not match.");
-		}else {
-			accounts.registerAccount(username, email, password, "temp");
-			ApplicationState.setCurrentAccount(accounts.findAccountByEmail(email));
-			SceneNavigator.showHome();
+			return;
 		}
+		
+		if(!(password.matches(confirmPassword))){
+			registerMessageLabel.setText("The password and confirmation password do not match.");
+			return;
+		}
+		
+		accounts.registerAccount(username, email, password, phoneNumber);
+		ApplicationState.setCurrentAccount(accounts.findAccountByEmail(email));
+		SceneNavigator.showHome();
+		
 	}
 	
 	
