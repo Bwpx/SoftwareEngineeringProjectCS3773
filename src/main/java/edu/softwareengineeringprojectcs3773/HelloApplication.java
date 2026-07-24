@@ -1,6 +1,7 @@
 package edu.softwareengineeringprojectcs3773;
 
 import edu.softwareengineeringprojectcs3773.database.DatabaseInitializer;
+import edu.softwareengineeringprojectcs3773.service.AccountService;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -10,8 +11,10 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) {
         try {
             DatabaseInitializer.initializeDatabase();
+            //AccountService accounts = new AccountService();
 
             SceneNavigator.initialize(primaryStage);
+            //SceneNavigator.showLogin();
             SceneNavigator.showHome();
 
         } catch (Exception exception) {

@@ -9,6 +9,7 @@ public class DatabaseInitializer {
     public static void initializeDatabase() {
         createAccountsTable();
         createGroceryItemsTable();
+        //createOrdersTable();
     }
 
     private static void createAccountsTable() {
@@ -55,5 +56,30 @@ public class DatabaseInitializer {
             System.out.println("Error creating grocery items table.");
             e.printStackTrace();
         }
+    }
+    
+    private static void createOrdersTable() {
+    	String sql = """
+    			CREATE TABLE IF NOT EXISTS orders (
+    				order_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    				account_id INTEGER FOREIGN KEY,
+    				date DATE NOT NULL,
+    				total INTEGER NOT NULL,
+    				status TEXT NOT NULL,
+    				delivery_type TEXT NOT NULL,
+    				actions TEXT NULL
+    			);
+    			""";
+    	
+    	try (Connection connection = DatabaseConnection.getConnection();
+                Statement statement = connection.createStatement()) {
+
+               statement.execute(sql);
+               System.out.println("Orders table ready.");
+
+           } catch (SQLException e) {
+               System.out.println("Error creating orders table.");
+               e.printStackTrace();
+           }
     }
 }
