@@ -440,7 +440,7 @@ public class CheckoutController {
 
             cart.clear();
             Date date = java.sql.Date.valueOf("2026-07-24");
-            Order order = orders.save(new Order(Integer.valueOf(finalOrderNumber), account.getAccountId(), date, finalOrderTotal, "In Progress", finalDeliveryMethod, "None"));
+            Order order = orders.save(new Order(finalOrderNumber, account.getAccountId(), date, finalOrderTotal, "In Progress", finalDeliveryMethod, "None"));
             SceneNavigator.showScene(
                     "order-confirmation-screen.fxml",
                     (OrderConfirmationController controller) -> {

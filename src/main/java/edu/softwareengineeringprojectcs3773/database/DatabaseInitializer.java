@@ -61,7 +61,7 @@ public class DatabaseInitializer {
     private static void createOrdersTable() {
     	String sql = """
     			CREATE TABLE IF NOT EXISTS orders (
-    				order_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    				order_id TEXT PRIMARY KEY,
     				account_id INTEGER,
     				date DATE NOT NULL,
     				total INTEGER NOT NULL,

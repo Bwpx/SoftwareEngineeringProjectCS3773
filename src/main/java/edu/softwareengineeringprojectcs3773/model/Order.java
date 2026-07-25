@@ -3,7 +3,7 @@ package edu.softwareengineeringprojectcs3773.model;
 import java.sql.Date;
 
 public class Order {
-	private int orderId;
+	private String orderId;
 	private int accountId;
 	private Date date;
 	private double total;
@@ -11,7 +11,7 @@ public class Order {
 	private String deliveryType;
 	private String actions;
 	
-	public Order(int orderId, int accountId, Date date, double total, String status, String deliveryType, String actions) {
+	public Order(String orderId, int accountId, Date date, double total, String status, String deliveryType, String actions) {
 		this.orderId = orderId;
 		this.accountId = accountId;
 		this.date = date;
@@ -21,7 +21,7 @@ public class Order {
 		this.actions = actions;
 	}
 	
-	public int getOrderId() {
+	public String getOrderId() {
 		return orderId;
 	}
 	
@@ -49,7 +49,7 @@ public class Order {
 		return actions;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 		
 	}

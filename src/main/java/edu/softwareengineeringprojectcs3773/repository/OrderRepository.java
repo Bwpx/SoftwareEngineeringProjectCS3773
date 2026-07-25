@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import edu.softwareengineeringprojectcs3773.database.DatabaseConnection;
 import edu.softwareengineeringprojectcs3773.model.Order;
@@ -13,7 +14,7 @@ public class OrderRepository {
 	
 	public Order save(Order order) {
 		String sql = """
-                INSERT INTO accounts (accountId, date, total, status, delivery_type, actions)
+                INSERT INTO orders (account_id, date, total, status, delivery_type, actions)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
 
@@ -34,7 +35,7 @@ public class OrderRepository {
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    order.setOrderId(generatedKeys.getInt(1));
+                    order.setOrderId(generatedKeys.getString(1));
                 }
             }
 
@@ -47,9 +48,60 @@ public class OrderRepository {
         }
 	}
 	
+	public Order findById(int orderId) {
+		String sql = """
+				SELECT order_id, account_id, date, total, status, delivery_type, actions
+				FROM orders
+				WHERE order_id = ?
+				""";
+		try (Connection connection = DatabaseConnection.getConnection();
+	             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	            statement.setInt(1, orderId);
+
+	            try (ResultSet resultSet = statement.executeQuery()) {
+	                if (resultSet.next()) {
+	                    return createOrderFromResultSet(resultSet);
+	                }
+	            }
+
+	        } catch (SQLException e) {
+	            System.out.println("Error finding order by ID.");
+	            e.printStackTrace();
+	        }
+
+	        return null;
+	}
+	
+	public ArrayList<Order> findByAccountId(int accountId) {
+		String sql = """
+				SELECT order_id, account_id, date, total, status, delivery_type, actions
+				FROM orders
+				WHERE account_id = ?
+				""";
+		ArrayList<Order> orders = new ArrayList<>();
+		try (Connection connection = DatabaseConnection.getConnection();
+	             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	            statement.setInt(1, accountId);
+
+	            try (ResultSet resultSet = statement.executeQuery()) {
+	                while (resultSet.next()) {
+	                    orders.add(createOrderFromResultSet(resultSet));
+	                }
+	            }
+
+	        } catch (SQLException e) {
+	            System.out.println("Error finding order by account ID.");
+	            e.printStackTrace();
+	        }
+
+	        return orders;
+	}
+	
 	public Order createOrderFromResultSet(ResultSet resultSet) throws SQLException {
 		return new Order(
-				resultSet.getInt("order_id"),
+				resultSet.getString("order_id"),
 				resultSet.getInt("account_id"),
 				resultSet.getDate("date"),
 				resultSet.getDouble("total"),
