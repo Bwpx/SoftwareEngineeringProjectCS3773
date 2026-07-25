@@ -411,8 +411,8 @@ public class CheckoutController {
              * database transaction.
              */
 
-            String temporaryOrderNumber =
-                    createTemporaryOrderNumber();
+            String temporaryOrderId = createTemporaryOrderNumber();
+            String temporaryOrderNumber = "#UTSA-" + temporaryOrderId;
 
             final String finalOrderNumber = temporaryOrderNumber;
             final String finalDeliveryMethod = deliveryMethod;
@@ -439,9 +439,14 @@ public class CheckoutController {
 
 
             cart.clear();
-            Date date = java.sql.Date.valueOf("2026-07-24");
-            Order order = orders.save(new Order(Integer.valueOf(finalOrderNumber), account.getAccountId(), date, finalOrderTotal, "In Progress", finalDeliveryMethod, "None"));
-            SceneNavigator.showScene(
+            Date date = java.sql.Date.valueOf(LocalDate.now());
+            Order order = orders.save(new Order(Integer.valueOf(finalOrderNumber), account.getAccountId(), date,
+                    finalOrderTotal, "Processing", finalDeliveryMethod, "View Details"));
+            if (order != null && order.getOrderId() > 0) {
+                temporaryOrderNumber = "#UTSA-" + order.getOrderId();
+            }
+
+                SceneNavigator.showScene(
                     "order-confirmation-screen.fxml",
                     (OrderConfirmationController controller) -> {
                         controller.setConfirmationData(
