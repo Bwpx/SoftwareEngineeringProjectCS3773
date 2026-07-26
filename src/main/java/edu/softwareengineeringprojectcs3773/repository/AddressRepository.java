@@ -15,8 +15,8 @@ public class AddressRepository {
 	
 	public Address save(Address address) {
 		String sql = """
-				INSERT INTO addresses (account_id, line_1, line_2, city, state, zip)
-				VALUES (?, ?, ?, ?, ?, ?)
+				INSERT INTO addresses (account_id, line_1, line_2, city, state, zip, type, autofill)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 				""";
 		
 		try (Connection connection = DatabaseConnection.getConnection();
@@ -31,6 +31,8 @@ public class AddressRepository {
 	            statement.setString(4, address.getCity());
 	            statement.setString(5, address.getState());
 	            statement.setInt(6, address.getZip());
+	            statement.setString(7, address.getType());
+	            statement.setBoolean(8, address.getAutofill());
 
 	            statement.executeUpdate();
 
@@ -51,7 +53,7 @@ public class AddressRepository {
 	
 	public Address findById(int addressId) {
 		String sql = """
-				SELECT address_id, account_id, line_1, line_2, city, state, zip
+				SELECT address_id, account_id, line_1, line_2, city, state, zip, type, autofill
 				FROM addresses
 				WHERE address_id = ?
 				""";
@@ -77,7 +79,7 @@ public class AddressRepository {
 	
 	public ArrayList<Address> findByAccountId(int accountId) {
 		String sql = """
-				SELECT address_id, account_id, line_1, line_2, city, state, zip
+				SELECT address_id, account_id, line_1, line_2, city, state, zip, type, autofill
 				FROM addresses
 				WHERE account_id = ?
 				""";
@@ -101,6 +103,32 @@ public class AddressRepository {
 	        return addresses;
 	}
 	
+	public Address findDefaultbyAccountId(int accountId) {
+		String sql = """
+				SELECT address_id, account_id, line_1, line_2, city, state, zip, type, autofill
+				FROM addresses
+				WHERE account_id = ?
+				AND autofill > 0
+				""";
+		try (Connection connection = DatabaseConnection.getConnection();
+	             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	            statement.setInt(1, accountId);
+
+	            try (ResultSet resultSet = statement.executeQuery()) {
+	                if (resultSet.next()) {
+	                    return createAddressFromResultSet(resultSet);
+	                }
+	            }
+
+	        } catch (SQLException e) {
+	            System.out.println("Error finding default address by account ID.");
+	            e.printStackTrace();
+	        }
+
+	        return null;
+	}
+	
 	public Address createAddressFromResultSet(ResultSet resultSet) throws SQLException {
 		return new Address(
 				resultSet.getInt("address_id"),
@@ -109,7 +137,9 @@ public class AddressRepository {
 				resultSet.getString("line_2"),
 				resultSet.getString("city"),
 				resultSet.getString("state"),
-				resultSet.getInt("zip")
+				resultSet.getInt("zip"),
+				resultSet.getString("type"),
+				resultSet.getBoolean("autofill")
 		);
 	}
 }

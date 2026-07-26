@@ -46,9 +46,9 @@ public class AccountController {
 		addAddressButton.setOnAction(event -> SceneNavigator.showAddressDialogue());
 		
 		addressTypeColumn.setCellValueFactory(data ->
-				new SimpleStringProperty(String.valueOf(data.getValue().getAddressId())));
+				new SimpleStringProperty(String.valueOf(data.getValue().getType())));
 		addressValueColumn.setCellValueFactory(data ->
-		new SimpleStringProperty(String.valueOf(data.getValue().getLine1())));
+		new SimpleStringProperty(String.valueOf(data.getValue().toString())));
 		addressActionsColumn.setCellValueFactory(data ->
 		new SimpleStringProperty("Remove"));
 		

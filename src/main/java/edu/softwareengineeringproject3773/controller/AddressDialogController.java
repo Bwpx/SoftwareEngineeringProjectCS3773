@@ -55,15 +55,35 @@ public class AddressDialogController {
             return;
         }
         // Address persistence will be connected through the team's AddressService.
-        addresses.save(new Address(
-        		0,
-        		account.getAccountId(),
-        		addressLine1Field.getText(),
-        		addressLine2Field.getText(),
-        		cityField.getText(),
-        		stateField.getText(),
-        		Integer.valueOf(zipField.getText())
-        		));
+        
+        if(defaultAddressCheckBox.isSelected()) {
+        	Address defaultAddress = addresses.findDefaultbyAccountId(account.getAccountId());
+        	defaultAddress.setAutofill(false);
+	        addresses.save(new Address(
+	        		0,
+	        		account.getAccountId(),
+	        		addressLine1Field.getText(),
+	        		addressLine2Field.getText(),
+	        		cityField.getText(),
+	        		stateField.getText(),
+	        		Integer.valueOf(zipField.getText()),
+	        		addressTypeComboBox.getSelectionModel().getSelectedItem(),
+	        		true
+	        		));
+        }else {
+        	addresses.save(new Address(
+	        		0,
+	        		account.getAccountId(),
+	        		addressLine1Field.getText(),
+	        		addressLine2Field.getText(),
+	        		cityField.getText(),
+	        		stateField.getText(),
+	        		Integer.valueOf(zipField.getText()),
+	        		addressTypeComboBox.getSelectionModel().getSelectedItem(),
+	        		false
+	        		));
+        }
+        
         SceneNavigator.showAccount();
         
         //close();
