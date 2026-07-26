@@ -12,7 +12,7 @@ public class AccountController {
 	public void initialize() {
 		backHomeButton.setOnAction(event -> SceneNavigator.showHome());
 		updateAccountButton.setOnAction(event -> updateAccount());
-		addAddressButton.setOnAction(event -> SceneNavigator.showAccount());
+		addAddressButton.setOnAction(event -> SceneNavigator.showAddressDialogue());
 	}
 	
 	public void updateAccount() {
