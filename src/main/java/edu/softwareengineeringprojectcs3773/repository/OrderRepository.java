@@ -35,7 +35,7 @@ public class OrderRepository {
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    order.setOrderId(generatedKeys.getString(1));
+                    order.setOrderId(generatedKeys.getInt(1));
                 }
             }
 
@@ -101,7 +101,7 @@ public class OrderRepository {
 	
 	public Order createOrderFromResultSet(ResultSet resultSet) throws SQLException {
 		return new Order(
-				resultSet.getString("order_id"),
+				resultSet.getInt("order_id"),
 				resultSet.getInt("account_id"),
 				resultSet.getDate("date"),
 				resultSet.getDouble("total"),

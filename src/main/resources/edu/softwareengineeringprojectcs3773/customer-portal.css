@@ -121,6 +121,10 @@
     -fx-font-weight: 700;
     -fx-cursor: hand;
 }
+.button:disabled {
+    -fx-opacity: 0.58;
+}
+
 .primary-button { -fx-background-color: -utsa-navy; -fx-text-fill: white; }
 .primary-button:hover { -fx-background-color: #15395F; }
 .accent-button { -fx-background-color: -utsa-orange; -fx-text-fill: white; }
@@ -166,6 +170,7 @@
 .summary-total-value { -fx-font-size: 21px; -fx-font-weight: 800; -fx-text-fill: -utsa-orange; }
 .success-circle { -fx-background-color: #E9F7F0; -fx-background-radius: 50; }
 .success-check { -fx-font-size: 45px; -fx-font-weight: 800; -fx-text-fill: -success; }
+.success-label { -fx-text-fill: -success; -fx-font-weight: 700;}
 
 .check-box .box, .radio-button .radio { -fx-background-radius: 7; -fx-border-radius: 7; -fx-border-color: #B8C4D1; }
 .radio-button .radio { -fx-background-radius: 50; -fx-border-radius: 50; }
@@ -246,6 +251,13 @@
     -fx-font-weight: 800;
     -fx-text-fill: -utsa-navy;
 }
+
+.empty-state-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0C2340;
+}
+
 .empty-state-text {
     -fx-text-fill: -text-muted;
     -fx-font-style: italic;
@@ -306,6 +318,7 @@
 .table-view .placeholder .label {
     -fx-text-fill: -text-muted;
     -fx-font-style: italic;
+    -fx-padding: 32;
 }
 /* Shared page header used by Browse, Cart, Checkout, and order screens. */
 .header {
