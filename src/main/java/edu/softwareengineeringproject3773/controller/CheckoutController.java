@@ -41,7 +41,6 @@ public class CheckoutController {
     private static final double EXPRESS_DELIVERY_FEE = 9.99;
     private static final double STORE_PICKUP_FEE = 0.00;
 
-    private CheckoutController checkoutController;
     private OrderRepository orders;
     private Account account;
 
@@ -311,7 +310,7 @@ public class CheckoutController {
         clearMessage();
 
         Cart cart = getCart();
-        Account account =
+        Account currentAccount =
                 ApplicationState.getCurrentAccount();
 
         if (account == null) {
@@ -366,117 +365,63 @@ public class CheckoutController {
                 );
             }
 
-            /*
-             * Payment-gateway integration:
-             *
-             * Do not save the raw card number or CVV in the
-             * application database.
-             *
-             * Send payment information to PaymentService. The
-             * PaymentService should communicate with the payment
-             * gateway and return a payment token or transaction
-             * identifier.
-             *
-             * Example:
-             *
-             * PaymentResult result =
-             *         paymentService.authorizePayment(
-             *                 orderTotal,
-             *                 cardNumber,
-             *                 expiration,
-             *                 cvv
-             *         );
-             *
-             * Only continue when result.isSuccessful() is true.
-             */
+            Order pendingOrder = new Order(
+                    0,
+                    currentAccount.getAccountId(),
+                    Date.valueOf(LocalDate.now()),
+                    orderTotal,
+                    "Processing",
+                    deliveryMethod,
+                    "View Details"
+            );
 
-            /*
-             * Database integration:
-             *
-             * 1. Save the address when saveAddressCheckBox is
-             *    selected by calling AddressService.
-             *
-             * 2. Call OrderService.placeOrder(...) to create:
-             *      - the Order record
-             *      - its OrderItem records
-             *      - delivery information
-             *      - the payment transaction reference
-             *
-             * 3. Update inventory through ItemService or an
-             *    InventoryService.
-             *
-             * 4. Clear the persisted cart through CartService.
-             *
-             * These operations should ideally occur in one
-             * database transaction.
-             */
-
-            String temporaryOrderId = createTemporaryOrderNumber();
-            String temporaryOrderNumber = "#UTSA-" + temporaryOrderId;
-
-            final String finalOrderNumber = temporaryOrderNumber;
-            final String finalDeliveryMethod = deliveryMethod;
-            final double finalOrderTotal = orderTotal;
-            final String finalEmail = account.getEmail();
-            final String finalDeliveryAddress = deliveryAddress;
-            final double finalSubtotal = subtotal;
-            final double finalTax = tax;
-            final double finalDeliveryFee = deliveryFee;
-
-
-            /*
-             * Clear sensitive payment fields immediately after
-             * the temporary order has been accepted.
-             */
-            clearPaymentFields();
-
-            /*
-             * Keep the cart available until the confirmation
-             * data has been prepared. Once database integration
-             * exists, OrderService should clear the cart only
-             * after the order transaction succeeds.
-             */
-
-
-            cart.clear();
-            Date date = java.sql.Date.valueOf(LocalDate.now());
-            Order order = orders.save(new Order(Integer.valueOf(finalOrderNumber), account.getAccountId(), date,
-                    finalOrderTotal, "Processing", finalDeliveryMethod, "View Details"));
-            if (order != null && order.getOrderId() > 0) {
-                temporaryOrderNumber = "#UTSA-" + order.getOrderId();
+            Order savedOrder = orders.save(pendingOrder);
+            if (savedOrder == null || savedOrder.getOrderId() <= 0) {
+                showMessage(
+                        "The order could not be saved. Your cart was not cleared.",
+                        true
+                );
+                placeOrderButton.setDisable(false);
+                return;
             }
 
-                SceneNavigator.showScene(
+
+
+            String orderNumber = "#UTSA-" + savedOrder.getOrderId();
+            String email = currentAccount.getEmail();
+
+            clearPaymentFields();
+            cart.clear();
+
+            SceneNavigator.showScene(
                     "order-confirmation-screen.fxml",
                     (OrderConfirmationController controller) -> {
                         controller.setConfirmationData(
-                                finalOrderNumber,
-                                finalDeliveryMethod,
-                                finalOrderTotal,
-                                finalEmail
+                                orderNumber,
+                                deliveryMethod,
+                                orderTotal,
+                                email
                         );
                         controller.setOrderDetailsData(
-                                finalOrderNumber,
+                                orderNumber,
                                 LocalDate.now(),
                                 "Processing",
                                 orderedItems,
-                                finalDeliveryAddress,
-                                finalDeliveryMethod,
-                                finalSubtotal,
-                                finalTax,
-                                finalDeliveryFee,
-                                finalOrderTotal
+                                deliveryAddress,
+                                deliveryMethod,
+                                subtotal,
+                                tax,
+                                deliveryFee,
+                                orderTotal
                         );
                     }
             );
-            
 
         } catch (Exception exception) {
             showMessage(
                     "The order could not be placed. Please try again.",
                     true
             );
-
             placeOrderButton.setDisable(false);
             exception.printStackTrace();
         }
