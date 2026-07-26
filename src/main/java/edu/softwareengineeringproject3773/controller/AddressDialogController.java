@@ -1,5 +1,10 @@
 package edu.softwareengineeringproject3773.controller;
 
+import edu.softwareengineeringprojectcs3773.ApplicationState;
+import edu.softwareengineeringprojectcs3773.SceneNavigator;
+import edu.softwareengineeringprojectcs3773.model.Account;
+import edu.softwareengineeringprojectcs3773.model.Address;
+import edu.softwareengineeringprojectcs3773.repository.AddressRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -17,12 +22,18 @@ public class AddressDialogController {
     @FXML private CheckBox defaultAddressCheckBox;
     @FXML private Button cancelButton;
     @FXML private Button saveButton;
+    
+    AddressRepository addresses;
+    Account account;
 
     @FXML
     private void initialize() {
+    	addresses = new AddressRepository();
+    	account = ApplicationState.getCurrentAccount();
+    	
         addressTypeComboBox.getItems().setAll("Shipping", "Billing");
         addressTypeComboBox.getSelectionModel().selectFirst();
-        cancelButton.setOnAction(event -> close());
+        cancelButton.setOnAction(event -> SceneNavigator.showAccount());
         saveButton.setOnAction(event -> handleSave());
 
         stateField.textProperty().addListener((obs, oldValue, newValue) -> {
@@ -44,7 +55,18 @@ public class AddressDialogController {
             return;
         }
         // Address persistence will be connected through the team's AddressService.
-        close();
+        addresses.save(new Address(
+        		0,
+        		account.getAccountId(),
+        		addressLine1Field.getText(),
+        		addressLine2Field.getText(),
+        		cityField.getText(),
+        		stateField.getText(),
+        		Integer.valueOf(zipField.getText())
+        		));
+        SceneNavigator.showAccount();
+        
+        //close();
     }
 
     private void close() {

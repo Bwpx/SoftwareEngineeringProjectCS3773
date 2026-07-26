@@ -3,12 +3,17 @@ package edu.softwareengineeringproject3773.controller;
 import edu.softwareengineeringprojectcs3773.ApplicationState;
 import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.Account;
+import edu.softwareengineeringprojectcs3773.model.Address;
+import edu.softwareengineeringprojectcs3773.repository.AddressRepository;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -24,15 +29,30 @@ public class AccountController {
 	@FXML private TextField accountEmailField;
 	@FXML private TextField accountPhoneField;
 	@FXML private Label accountMessageLabel;
-	@FXML private TableView<?> addressTableView;
+	@FXML private TableView<Address> addressTableView;
+	@FXML private TableColumn<Address, String> addressActionsColumn;
+	@FXML private TableColumn<Address, String> addressTypeColumn;
+	@FXML private TableColumn<Address, String> addressValueColumn;
 
 	private Account currentAccount;
+	private AddressRepository addresses;
 
 
 	public void initialize() {
+		addresses = new AddressRepository();
+		loadAccount();
 		backHomeButton.setOnAction(event -> SceneNavigator.showHome());
 		updateAccountButton.setOnAction(event -> updateAccount());
-		addAddressButton.setOnAction(event -> SceneNavigator.showAccount());
+		addAddressButton.setOnAction(event -> SceneNavigator.showAddressDialogue());
+		
+		addressTypeColumn.setCellValueFactory(data ->
+				new SimpleStringProperty(String.valueOf(data.getValue().getAddressId())));
+		addressValueColumn.setCellValueFactory(data ->
+		new SimpleStringProperty(String.valueOf(data.getValue().getLine1())));
+		addressActionsColumn.setCellValueFactory(data ->
+		new SimpleStringProperty("Remove"));
+		
+		addressTableView.setItems(FXCollections.observableArrayList(addresses.findByAccountId(currentAccount.getAccountId())));
 	}
 
 	private void loadAccount() {

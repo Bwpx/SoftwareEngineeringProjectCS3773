@@ -60,7 +60,7 @@ public class RegisterController {
 			return;
 		}
 		
-		accounts.registerAccount(username, email, password, phoneNumber);
+		accounts.registerAccount(username, firstName, lastName, email, password, phoneNumber);
 		ApplicationState.setCurrentAccount(accounts.findAccountByEmail(email));
 		SceneNavigator.showHome();
 		

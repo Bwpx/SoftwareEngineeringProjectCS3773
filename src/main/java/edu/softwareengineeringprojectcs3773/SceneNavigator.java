@@ -63,6 +63,10 @@ public class SceneNavigator {
     public static void showAccount() {
         showScene("account-screen.fxml");
     }
+    
+    public static void showAddressDialogue() {
+		showScene("address-dialog.fxml");
+	}
 
     public static void showOrderHistory() {
         showScene("order-history-screen.fxml");
@@ -147,4 +151,5 @@ public class SceneNavigator {
             );
         }
     }
+
 }

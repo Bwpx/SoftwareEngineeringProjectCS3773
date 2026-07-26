@@ -392,7 +392,6 @@ public class CheckoutController {
 
             clearPaymentFields();
             cart.clear();
-
             SceneNavigator.showScene(
                     "order-confirmation-screen.fxml",
                     (OrderConfirmationController controller) -> {
