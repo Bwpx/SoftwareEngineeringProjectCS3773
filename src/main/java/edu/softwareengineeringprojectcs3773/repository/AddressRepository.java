@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import edu.softwareengineeringprojectcs3773.database.DatabaseConnection;
+import edu.softwareengineeringprojectcs3773.model.Account;
 import edu.softwareengineeringprojectcs3773.model.Address;
 import edu.softwareengineeringprojectcs3773.model.Order;
 
@@ -50,6 +51,47 @@ public class AddressRepository {
 	            return null;
 	        }
 	}
+	
+    public Address updateAddress(Address address) {
+    	String sql = """
+    			UPDATE addresses
+    			SET account_id = ?,
+    				line_1 = ?,
+    				line_2 = ?,
+    				city = ?,
+    				state = ?,
+    				zip = ?,
+    				type = ?,
+    				autofill = ?
+    			WHERE address_id = ?
+    			""";
+    	
+    	try (Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+
+    			statement.setInt(1, address.getAccountId());
+    			statement.setString(2, address.getLine1());
+    			statement.setString(3, address.getLine2());
+    			statement.setString(4, address.getCity());
+    			statement.setString(5, address.getState());
+    			statement.setInt(6, address.getZip());
+    			statement.setString(7, address.getType());
+    			statement.setBoolean(8, address.getAutofill());
+    			statement.setInt(9, address.getAddressId());
+
+               int rowsUpdated = statement.executeUpdate();
+               
+               if(rowsUpdated > 0) {
+            	   return address;
+               }
+
+           } catch (SQLException e) {
+               System.out.println("Error updating address.");
+               e.printStackTrace();
+           }
+
+           return null;
+    }
 	
 	public Address findById(int addressId) {
 		String sql = """
