@@ -13,7 +13,7 @@ public class OrderRepository {
 	
 	public Order save(Order order) {
 		String sql = """
-                INSERT INTO accounts (accountId, date, total, status, delivery_type, actions)
+                INSERT INTO orders (account_id, date, total, status, delivery_type, actions)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
 
