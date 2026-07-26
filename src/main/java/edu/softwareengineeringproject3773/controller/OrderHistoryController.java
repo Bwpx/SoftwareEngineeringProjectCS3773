@@ -28,9 +28,14 @@ public class OrderHistoryController {
 	@FXML private TableColumn<Order, String> orderStatusColumn;
 	@FXML private TableColumn<Order, String> deliveryColumn;
 	@FXML private TableColumn<Order, String> viewDetailsColumn;
+	
+	OrderRepository orders;
+	Account account;
 
 	@FXML
 	private void initialize() {
+		orders = new OrderRepository();
+		account = ApplicationState.getCurrentAccount();
 		homeButton.setOnAction(event -> SceneNavigator.showHome());
 		sortButton.setOnAction(event -> applySort());
 
@@ -62,7 +67,7 @@ public class OrderHistoryController {
 		ordersTableView.setPlaceholder(placeholder);
 
 		// OrderService should populate this table once the team's repository query is ready.
-		ordersTableView.setItems(FXCollections.observableArrayList());
+		ordersTableView.setItems(FXCollections.observableArrayList(orders.findByAccountId(account.getAccountId())));
 	}
 
 	private void applySort() {

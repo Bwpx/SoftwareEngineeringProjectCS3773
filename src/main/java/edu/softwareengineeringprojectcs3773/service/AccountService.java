@@ -12,6 +12,8 @@ public class AccountService {
 
     public boolean registerAccount(
             String username,
+            String firstName,
+            String lastName,
             String email,
             String password,
             String phoneNumber
@@ -42,6 +44,8 @@ public class AccountService {
         Account newAccount = new Account(
                 0,
                 username,
+                firstName,
+                lastName,
                 email,
                 password,
                 phoneNumber

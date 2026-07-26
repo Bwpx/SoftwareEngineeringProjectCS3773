@@ -13,6 +13,8 @@ public class AccountDatabaseTest {
 
         boolean registered = accountService.registerAccount(
                 "martin",
+                "martin",
+                "lastName",
                 "martin@example.com",
                 "password123",
                 "210-555-1234"
