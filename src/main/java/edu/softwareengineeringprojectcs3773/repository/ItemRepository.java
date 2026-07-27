@@ -52,7 +52,7 @@ public class ItemRepository {
         }
     }
     
-    public GroceryItem updateOrder(GroceryItem item) {
+    public GroceryItem updateItem(GroceryItem item) {
     	String sql = """
     			UPDATE grocery_items
     			SET item_name = ?,

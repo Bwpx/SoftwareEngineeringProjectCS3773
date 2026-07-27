@@ -58,7 +58,10 @@ public class AddressDialogController {
         
         if(defaultAddressCheckBox.isSelected()) {
         	Address defaultAddress = addresses.findDefaultbyAccountId(account.getAccountId());
-        	defaultAddress.setAutofill(false);
+        	if(defaultAddress != null) {
+        		defaultAddress.setAutofill(false);
+        		addresses.updateAddress(defaultAddress);
+        	}
 	        addresses.save(new Address(
 	        		0,
 	        		account.getAccountId(),

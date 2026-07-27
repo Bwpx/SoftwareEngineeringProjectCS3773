@@ -4,6 +4,7 @@ import edu.softwareengineeringprojectcs3773.ApplicationState;
 import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.Account;
 import edu.softwareengineeringprojectcs3773.model.Address;
+import edu.softwareengineeringprojectcs3773.repository.AccountRepository;
 import edu.softwareengineeringprojectcs3773.repository.AddressRepository;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -36,10 +37,12 @@ public class AccountController {
 
 	private Account currentAccount;
 	private AddressRepository addresses;
+	private AccountRepository accounts;
 
 
 	public void initialize() {
 		addresses = new AddressRepository();
+		accounts = new AccountRepository();
 		loadAccount();
 		backHomeButton.setOnAction(event -> SceneNavigator.showHome());
 		updateAccountButton.setOnAction(event -> updateAccount());
@@ -98,6 +101,7 @@ public class AccountController {
 		currentAccount.setUsername(username);
 		currentAccount.setEmail(email);
 		currentAccount.setPhoneNumber(phone);
+		accounts.updateAccount(currentAccount);
 		showMessage("Account information updated for this session.", false);
 	}
 

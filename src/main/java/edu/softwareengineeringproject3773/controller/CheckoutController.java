@@ -248,11 +248,13 @@ public class CheckoutController {
         
         Address defaultAddress = addresses.findDefaultbyAccountId(account.getAccountId());
         
-        checkoutNameField.setText(account.getName());
-        streetField.setText(defaultAddress.getLine1());
-        cityField.setText(defaultAddress.getCity());
-        stateField.setText(defaultAddress.getState());
-        zipField.setText(String.valueOf(defaultAddress.getZip()));
+        if(defaultAddress != null) {
+	        checkoutNameField.setText(account.getName());
+	        streetField.setText(defaultAddress.getLine1());
+	        cityField.setText(defaultAddress.getCity());
+	        stateField.setText(defaultAddress.getState());
+	        zipField.setText(String.valueOf(defaultAddress.getZip()));
+        }
     }
 
     /**
