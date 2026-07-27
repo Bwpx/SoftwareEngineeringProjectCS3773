@@ -28,7 +28,49 @@
       <content>
         <VBox spacing="22" styleClass="page-content">
           <HBox spacing="18" alignment="TOP_LEFT">
-            <VBox prefWidth="430" spacing="16" styleClass="card">
-              <Label text="Customer Information" styleClass="section-title"/><Label text="First Name" styleClass="field-label"/><TextField fx:id="accountFirstNameField"/><Label text="Last Name" styleClass="field-label"/><TextField fx:id="accountLastNameField"/><Label text="Email" styleClass="field-label"/><TextField fx:id="accountEmailField"/><Button fx:id="updateAccountButton" text="Update Information" styleClass="primary-button"/></VBox><VBox HBox.hgrow="ALWAYS" spacing="12" styleClass="card"><HBox><Label text="Address Book" styleClass="section-title"/><Region HBox.hgrow="ALWAYS"/><Button fx:id="addAddressButton" text="Add Address" styleClass="accent-button"/></HBox><TableView fx:id="addressTableView" prefHeight="360"><columns><TableColumn fx:id="addressTypeColumn" text="Type" prefWidth="110"/><TableColumn fx:id="addressValueColumn" text="Address" prefWidth="390"/><TableColumn fx:id="addressActionsColumn" text="Edit / Delete" prefWidth="170"/></columns></TableView></VBox></HBox></VBox></content></ScrollPane>
+            <VBox prefWidth="430" spacing="14" styleClass="card">
+              <VBox spacing="3">
+                <Label text="Customer Information" styleClass="section-title"/>
+                <Label text="Keep your contact details current for order notifications." wrapText="true" styleClass="muted-text"/>
+              </VBox>
+              <Separator/>
+              <Label text="Username" styleClass="field-label"/>
+              <TextField fx:id="accountUsernameField" promptText="Username"/>
+              <Label text="Email Address" styleClass="field-label"/>
+              <TextField fx:id="accountEmailField" promptText="name@example.com"/>
+              <Label text="Phone Number" styleClass="field-label"/>
+              <TextField fx:id="accountPhoneField" promptText="(210) 555-0123"/>
+              <Label fx:id="accountMessageLabel" text="" wrapText="true" styleClass="checkout-message"/>
+              <Button fx:id="updateAccountButton" text="Save Changes" maxWidth="Infinity" styleClass="primary-button"/>
+            </VBox>
+
+            <VBox HBox.hgrow="ALWAYS" spacing="12" styleClass="card">
+              <HBox alignment="CENTER_LEFT">
+                <VBox spacing="3">
+                  <Label text="Address Book" styleClass="section-title"/>
+                  <Label text="Save addresses to make checkout faster." styleClass="muted-text"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="addAddressButton" text="Add Address" styleClass="accent-button"/>
+              </HBox>
+              <Separator/>
+              <TableView fx:id="addressTableView" prefHeight="360" styleClass="data-table">
+                <placeholder>
+                  <VBox alignment="CENTER" spacing="8">
+                    <Label text="No saved addresses" styleClass="empty-state-title"/>
+                    <Label text="Select Add Address to create your first delivery address." styleClass="empty-state-text"/>
+                  </VBox>
+                </placeholder>
+                <columns>
+                  <TableColumn fx:id="addressTypeColumn" text="Type" prefWidth="110"/>
+                  <TableColumn fx:id="addressValueColumn" text="Address" prefWidth="390"/>
+                  <TableColumn fx:id="addressActionsColumn" text="Actions" prefWidth="170"/>
+                </columns>
+              </TableView>
+            </VBox>
+          </HBox>
+        </VBox>
+      </content>
+    </ScrollPane>
   </center>
 </BorderPane>

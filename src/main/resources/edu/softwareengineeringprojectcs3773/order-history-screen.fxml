@@ -49,7 +49,7 @@
       </columns>
       </TableView>
       <HBox alignment="CENTER_LEFT" spacing="8" styleClass="info-strip">
-        <Label text="Order details will become available here after checkout is connected to the order database." wrapText="true" styleClass="muted-text"/>
+        <Label text="Orders can be sorted by date or total. Select an order to review its details." wrapText="true" styleClass="muted-text"/>
       </HBox>
     </VBox>
   </center>

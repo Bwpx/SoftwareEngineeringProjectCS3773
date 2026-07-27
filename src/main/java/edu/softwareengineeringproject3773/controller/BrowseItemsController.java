@@ -158,19 +158,17 @@ public class BrowseItemsController {
     }
 
     private void openItemDetails(GroceryItem item) {
-        System.out.println(
-                "Open details for item ID: "
-                        + item.getItemId()
-        );
+        if (item == null) {
+            return;
+        }
 
-        /*
-         * Later:
-         * ItemDetailsController detailsController =
-         *         MainController.showItemDetails();
-         *
-         * detailsController.setItem(item);
-         */
+        SceneNavigator.showScene(
+                "item-detail-screen.fxml",
+                (ItemDetailsController controller) ->
+                        controller.setItem(item)
+        );
     }
+
 
     private void addItemToCart(GroceryItem item) {
        Cart cart = ApplicationState.getCurrentCart();

@@ -2,6 +2,7 @@ package edu.softwareengineeringprojectcs3773.repository;
 
 import edu.softwareengineeringprojectcs3773.database.DatabaseConnection;
 import edu.softwareengineeringprojectcs3773.model.GroceryItem;
+import edu.softwareengineeringprojectcs3773.model.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,6 +50,39 @@ public class ItemRepository {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public GroceryItem updateItem(GroceryItem item) {
+    	String sql = """
+    			UPDATE grocery_items
+    			SET item_name = ?,
+    				category = ?,
+    				price = ?,
+    				quantity_in_stock = ?,
+    			WHERE item_id = ?
+    			""";
+    	
+    	try (Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+
+    			statement.setString(1, item.getItemName());
+    			statement.setString(2, item.getCategory());
+    			statement.setDouble(3, item.getPrice());
+    			statement.setInt(4, item.getQuantityInStock());
+    			statement.setInt(5, item.getItemId());
+
+               int rowsUpdated = statement.executeUpdate();
+               
+               if(rowsUpdated > 0) {
+            	   return item;
+               }
+
+           } catch (SQLException e) {
+               System.out.println("Error updating item.");
+               e.printStackTrace();
+           }
+
+           return null;
     }
 
     public GroceryItem findById(int itemId) {

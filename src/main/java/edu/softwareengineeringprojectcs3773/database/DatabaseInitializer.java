@@ -13,6 +13,7 @@ public class DatabaseInitializer {
         createGroceryItemsTable();
         createOrdersTable();
         migrateOrdersTotalToReal();
+        createAddressesTable();
     }
 
     private static void createAccountsTable() {
@@ -239,6 +240,34 @@ public class DatabaseInitializer {
             System.out.println(
                     "Error migrating orders total column."
             );
+            e.printStackTrace();
+        }
+    }
+
+    private static void createAddressesTable() {
+        String sql = """
+                CREATE TABLE IF NOT EXISTS addresses (
+                    address_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    account_id INTEGER,
+                    line_1 TEXT NOT NULL,
+                    line_2 TEXT NULL,
+                    city TEXT NOT NULL,
+                    state TEXT NOT NULL,
+                    zip INTEGER NOT NULL,
+                    type TEXT NOT NULL,
+                    autofill INTEGER NOT NULL,
+                    CONSTRAINT Account_ID_FK FOREIGN KEY (account_id) REFERENCES accounts(account_id)
+                );
+                """;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement()) {
+
+            statement.execute(sql);
+            System.out.println("Addresses table ready.");
+
+        } catch (SQLException e) {
+            System.out.println("Error creating addresses table.");
             e.printStackTrace();
         }
     }
