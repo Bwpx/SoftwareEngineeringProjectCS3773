@@ -8,8 +8,10 @@ public class Address {
 	String city;
 	String state;
 	int zip;
+	String type;
+	boolean autofill;
 	
-	public Address(int addressId, int accountId, String line1, String line2, String city, String state, int zip) {
+	public Address(int addressId, int accountId, String line1, String line2, String city, String state, int zip, String type, boolean autofill) {
 		this.addressId = addressId;
 		this.accountId = accountId;
 		this.line1 = line1;
@@ -17,6 +19,9 @@ public class Address {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
+		this.type = type;
+		this.autofill = autofill;
+		//this.autofill = (autofill > 0);
 	}
 	
 	public int getAddressId() {
@@ -47,7 +52,27 @@ public class Address {
 		return zip;
 	}
 	
+	public String getType() {
+		return type;
+	}
+	
+	public boolean getAutofill() {
+		return autofill;
+	}
+	
 	public void setAddressId(int addressId) {
 		this.addressId = addressId;
+	}
+	
+	public void setAutofill(boolean autofill) {
+		this.autofill = autofill;
+		
+	}
+	
+	public String toString() {
+		if(line2.isEmpty()) {
+			return line1 + ", " + city + " " + state + " " + String.valueOf(zip);
+		}
+		return line1 + " " + line2 + ", " + city + " " + state + " " + String.valueOf(zip);
 	}
 }

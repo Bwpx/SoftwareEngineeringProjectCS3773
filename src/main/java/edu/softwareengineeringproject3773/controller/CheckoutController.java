@@ -3,9 +3,11 @@ package edu.softwareengineeringproject3773.controller;
 import edu.softwareengineeringprojectcs3773.ApplicationState;
 import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.Account;
+import edu.softwareengineeringprojectcs3773.model.Address;
 import edu.softwareengineeringprojectcs3773.model.Cart;
 import edu.softwareengineeringprojectcs3773.model.CartItem;
 import edu.softwareengineeringprojectcs3773.model.Order;
+import edu.softwareengineeringprojectcs3773.repository.AddressRepository;
 import edu.softwareengineeringprojectcs3773.repository.OrderRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -42,6 +44,7 @@ public class CheckoutController {
     private static final double STORE_PICKUP_FEE = 0.00;
 
     private OrderRepository orders;
+    private AddressRepository addresses;
     private Account account;
 
     @FXML
@@ -105,6 +108,7 @@ public class CheckoutController {
     @FXML
     private void initialize() {
     	orders = new OrderRepository();
+    	addresses = new AddressRepository();
         configureDeliveryMethods();
         configurePaymentMethods();
         configureActions();
@@ -241,6 +245,16 @@ public class CheckoutController {
          * Leave checkoutNameField blank until that data is
          * available from the account or customer database.
          */
+        
+        Address defaultAddress = addresses.findDefaultbyAccountId(account.getAccountId());
+        
+        if(defaultAddress != null) {
+	        checkoutNameField.setText(account.getName());
+	        streetField.setText(defaultAddress.getLine1());
+	        cityField.setText(defaultAddress.getCity());
+	        stateField.setText(defaultAddress.getState());
+	        zipField.setText(String.valueOf(defaultAddress.getZip()));
+        }
     }
 
     /**

@@ -97,6 +97,8 @@ public class DatabaseInitializer {
     				city TEXT NOT NULL,
     				state TEXT NOT NULL,
     				zip INTEGER NOT NULL,
+    				type TEXT NOT NULL,
+    				autofill INTEGER NOT NULL,
     				CONSTRAINT Account_ID_FK FOREIGN KEY (account_id) REFERENCES accounts(account_id)
     			);
     			""";

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import edu.softwareengineeringprojectcs3773.database.DatabaseConnection;
+import edu.softwareengineeringprojectcs3773.model.Address;
 import edu.softwareengineeringprojectcs3773.model.Order;
 
 public class OrderRepository {
@@ -47,6 +48,43 @@ public class OrderRepository {
             return null;
         }
 	}
+	
+    public Order updateOrder(Order order) {
+    	String sql = """
+    			UPDATE orders
+    			SET account_id = ?,
+    				date = ?,
+    				total = ?,
+    				status = ?,
+    				delivery_type = ?,
+    				actions = ?
+    			WHERE order_id = ?
+    			""";
+    	
+    	try (Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+
+    			statement.setInt(1, order.getAccountId());
+    			statement.setDate(2, order.getDate());
+    			statement.setDouble(3, order.getTotal());
+    			statement.setString(4, order.getStatus());
+    			statement.setString(5, order.getDeliveryType());
+    			statement.setString(6, order.getActions());
+    			statement.setInt(7, order.getOrderId());
+
+               int rowsUpdated = statement.executeUpdate();
+               
+               if(rowsUpdated > 0) {
+            	   return order;
+               }
+
+           } catch (SQLException e) {
+               System.out.println("Error updating order.");
+               e.printStackTrace();
+           }
+
+           return null;
+    }
 	
 	public Order findById(int orderId) {
 		String sql = """

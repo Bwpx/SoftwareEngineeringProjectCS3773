@@ -47,6 +47,43 @@ public class AccountRepository {
             return null;
         }
     }
+    
+    public Account updateAccount(Account account) {
+    	String sql = """
+    			UPDATE accounts
+    			SET username = ?,
+    				first_name = ?,
+    				last_name = ?,
+    				email = ?,
+    				password = ?,
+    				phone_number = ?
+    			WHERE account_id = ?
+    			""";
+    	
+    	try (Connection connection = DatabaseConnection.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+
+    			statement.setString(1, account.getUsername());
+    			statement.setString(2, account.getFirstName());
+    			statement.setString(3, account.getLastName());
+    			statement.setString(4, account.getEmail());
+    			statement.setString(5, account.getPassword());
+    			statement.setString(6, account.getPhoneNumber());
+    			statement.setInt(7, account.getAccountId());
+
+               int rowsUpdated = statement.executeUpdate();
+               
+               if(rowsUpdated > 0) {
+            	   return account;
+               }
+
+           } catch (SQLException e) {
+               System.out.println("Error updating account.");
+               e.printStackTrace();
+           }
+
+           return null;
+    }
 
     public Account findByEmail(String email) {
         String sql = """
