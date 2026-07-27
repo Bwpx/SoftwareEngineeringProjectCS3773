@@ -10,10 +10,17 @@ import edu.softwareengineeringprojectcs3773.database.DatabaseConnection;
 import edu.softwareengineeringprojectcs3773.model.Order;
 
 public class OrderRepository {
-	
-	public Order save(Order order) {
-		String sql = """
-                INSERT INTO accounts (accountId, date, total, status, delivery_type, actions)
+
+    public Order save(Order order) {
+        String sql = """
+                INSERT INTO orders (
+                    account_id,
+                    date,
+                    total,
+                    status,
+                    delivery_type,
+                    actions
+                )
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
 
@@ -45,18 +52,17 @@ public class OrderRepository {
             e.printStackTrace();
             return null;
         }
-	}
-	
-	public Order createOrderFromResultSet(ResultSet resultSet) throws SQLException {
-		return new Order(
-				resultSet.getInt("order_id"),
-				resultSet.getInt("account_id"),
-				resultSet.getDate("date"),
-				resultSet.getDouble("total"),
-				resultSet.getString("status"),
-				resultSet.getString("delivery_type"),
-				resultSet.getString("actions")
-		);
-	}
+    }
 
+    public Order createOrderFromResultSet(ResultSet resultSet) throws SQLException {
+        return new Order(
+                resultSet.getInt("order_id"),
+                resultSet.getInt("account_id"),
+                resultSet.getDate("date"),
+                resultSet.getDouble("total"),
+                resultSet.getString("status"),
+                resultSet.getString("delivery_type"),
+                resultSet.getString("actions")
+        );
+    }
 }

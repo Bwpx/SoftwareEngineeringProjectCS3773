@@ -1,30 +1,43 @@
 package edu.softwareengineeringprojectcs3773;
 
 import edu.softwareengineeringprojectcs3773.database.DatabaseInitializer;
-import edu.softwareengineeringprojectcs3773.service.AccountService;
+import edu.softwareengineeringproject3773.controller.LoginController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class HelloApplication extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            DatabaseInitializer.initializeDatabase();
-            //AccountService accounts = new AccountService();
+    public void start(Stage stage) throws IOException {
+        DatabaseInitializer.initializeDatabase();
 
-            SceneNavigator.initialize(primaryStage);
-            SceneNavigator.showLogin();
-            //SceneNavigator.showHome();
+        FXMLLoader fxmlLoader = new FXMLLoader(getURL("login-screen.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
 
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        LoginController loginController = fxmlLoader.getController();
 
-            throw new IllegalStateException(
-                    "Unable to start the application.",
-                    exception
-            );
-        }
+        FXMLLoader registerLoader = new FXMLLoader(getURL("register-screen.fxml"));
+        Scene registerScene = new Scene(registerLoader.load());
+
+        FXMLLoader homeLoader = new FXMLLoader(getURL("home-screen.fxml"));
+        Scene homeScene = new Scene(homeLoader.load());
+
+        loginController.setStage(stage);
+        loginController.setRegisterScene(registerScene);
+        loginController.setHomeScene(homeScene);
+
+        stage.setTitle("RoadRunner MarketPlace!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static URL getURL(String fileName) {
+        return HelloApplication.class.getResource(fileName);
     }
 
     public static void main(String[] args) {

@@ -14,8 +14,15 @@ public class AccountRepository {
 
     public Account save(Account account) {
         String sql = """
-                INSERT INTO accounts (username, email, password, phone_number)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO accounts (
+                    first_name,
+                    last_name,
+                    username,
+                    email,
+                    password,
+                    phone_number
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
                 """;
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -24,10 +31,12 @@ public class AccountRepository {
                      Statement.RETURN_GENERATED_KEYS
              )) {
 
-            statement.setString(1, account.getUsername());
-            statement.setString(2, account.getEmail());
-            statement.setString(3, account.getPassword());
-            statement.setString(4, account.getPhoneNumber());
+            statement.setString(1, account.getFirstName());
+            statement.setString(2, account.getLastName());
+            statement.setString(3, account.getUsername());
+            statement.setString(4, account.getEmail());
+            statement.setString(5, account.getPassword());
+            statement.setString(6, account.getPhoneNumber());
 
             statement.executeUpdate();
 
@@ -48,7 +57,8 @@ public class AccountRepository {
 
     public Account findByEmail(String email) {
         String sql = """
-                SELECT account_id, username, email, password, phone_number
+                SELECT account_id, first_name, last_name, username,
+                       email, password, phone_number
                 FROM accounts
                 WHERE LOWER(email) = LOWER(?)
                 """;
@@ -74,7 +84,8 @@ public class AccountRepository {
 
     public Account findByUsername(String username) {
         String sql = """
-                SELECT account_id, username, email, password, phone_number
+                SELECT account_id, first_name, last_name, username,
+                       email, password, phone_number
                 FROM accounts
                 WHERE LOWER(username) = LOWER(?)
                 """;
@@ -100,7 +111,8 @@ public class AccountRepository {
 
     public Account findById(int accountId) {
         String sql = """
-                SELECT account_id, username, email, password, phone_number
+                SELECT account_id, first_name, last_name, username,
+                       email, password, phone_number
                 FROM accounts
                 WHERE account_id = ?
                 """;
@@ -128,7 +140,8 @@ public class AccountRepository {
         ArrayList<Account> accounts = new ArrayList<>();
 
         String sql = """
-                SELECT account_id, username, email, password, phone_number
+                SELECT account_id, first_name, last_name, username,
+                       email, password, phone_number
                 FROM accounts
                 ORDER BY account_id
                 """;
@@ -162,6 +175,8 @@ public class AccountRepository {
 
         return new Account(
                 resultSet.getInt("account_id"),
+                resultSet.getString("first_name"),
+                resultSet.getString("last_name"),
                 resultSet.getString("username"),
                 resultSet.getString("email"),
                 resultSet.getString("password"),
