@@ -3,7 +3,9 @@ package edu.softwareengineeringproject3773.controller;
 import edu.softwareengineeringprojectcs3773.ApplicationState;
 import edu.softwareengineeringprojectcs3773.SceneNavigator;
 import edu.softwareengineeringprojectcs3773.model.Account;
+import edu.softwareengineeringprojectcs3773.model.CartItem;
 import edu.softwareengineeringprojectcs3773.model.Order;
+import edu.softwareengineeringprojectcs3773.repository.AddressRepository;
 import edu.softwareengineeringprojectcs3773.repository.OrderRepository;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -30,11 +33,13 @@ public class OrderHistoryController {
 	@FXML private TableColumn<Order, String> viewDetailsColumn;
 	
 	OrderRepository orders;
+	AddressRepository addresses;
 	Account account;
 
 	@FXML
 	private void initialize() {
 		orders = new OrderRepository();
+		addresses = new AddressRepository();
 		account = ApplicationState.getCurrentAccount();
 		homeButton.setOnAction(event -> SceneNavigator.showHome());
 		sortButton.setOnAction(event -> applySort());
@@ -57,7 +62,8 @@ public class OrderHistoryController {
 				new SimpleStringProperty(data.getValue().getStatus()));
 		deliveryColumn.setCellValueFactory(data ->
 				new SimpleStringProperty(data.getValue().getDeliveryType()));
-		viewDetailsColumn.setCellValueFactory(data ->
+		viewDetailsColumn.setCellValueFactory(column ->
+				//createDetailsButtonCell());
 				new SimpleStringProperty("View Details"));
 
 		Label placeholder = new Label(
@@ -69,6 +75,52 @@ public class OrderHistoryController {
 		// OrderService should populate this table once the team's repository query is ready.
 		ordersTableView.setItems(FXCollections.observableArrayList(orders.findByAccountId(account.getAccountId())));
 	}
+	
+	private TableCell<Order, Order>
+    createDetailsButtonCell() {
+
+        return new TableCell<>() {
+
+            private final Button detailsButton =
+                    new Button("View Details");
+
+            {
+                detailsButton.getStyleClass().add(
+                        "danger-button"
+                );
+            }
+
+            @Override
+            protected void updateItem(
+                    Order order,
+                    boolean empty
+            ) {
+                super.updateItem(order, empty);
+
+                if (empty || order == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                /*
+                detailsButton.setOnAction(event ->
+                SceneNavigator.showScene(
+                        "order-detail-screen.fxml",
+                        (OrderDetailsController controller) -> controller.setOrderDetails(
+                                order,
+                                address,
+                                orderItems,
+                                subtotal,
+                                tax,
+                                deliveryFee
+                        ))
+                );
+                */
+
+                setGraphic(detailsButton);
+            }
+        };
+    }
 
 	private void applySort() {
 		String selected = sortOrdersComboBox.getValue();

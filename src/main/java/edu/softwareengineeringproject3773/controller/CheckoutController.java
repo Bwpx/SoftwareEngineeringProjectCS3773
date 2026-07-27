@@ -403,29 +403,25 @@ public class CheckoutController {
 
             String orderNumber = "#UTSA-" + savedOrder.getOrderId();
             String email = currentAccount.getEmail();
-
+            Address defaultAddress = addresses.findDefaultbyAccountId(account.getAccountId());
+            
             clearPaymentFields();
             cart.clear();
             SceneNavigator.showScene(
                     "order-confirmation-screen.fxml",
                     (OrderConfirmationController controller) -> {
                         controller.setConfirmationData(
-                                orderNumber,
-                                deliveryMethod,
-                                orderTotal,
+                                savedOrder,
+                                defaultAddress,
                                 email
                         );
                         controller.setOrderDetailsData(
-                                orderNumber,
-                                LocalDate.now(),
-                                "Processing",
+                                savedOrder,
+                                defaultAddress,
                                 orderedItems,
-                                deliveryAddress,
-                                deliveryMethod,
                                 subtotal,
                                 tax,
-                                deliveryFee,
-                                orderTotal
+                                deliveryFee
                         );
                     }
             );

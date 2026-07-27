@@ -1,8 +1,12 @@
 package edu.softwareengineeringproject3773.controller;
 
 import edu.softwareengineeringprojectcs3773.SceneNavigator;
+import edu.softwareengineeringprojectcs3773.model.Address;
 import edu.softwareengineeringprojectcs3773.model.CartItem;
 import edu.softwareengineeringprojectcs3773.model.GroceryItem;
+import edu.softwareengineeringprojectcs3773.model.Order;
+import edu.softwareengineeringprojectcs3773.repository.AddressRepository;
+import edu.softwareengineeringprojectcs3773.repository.OrderRepository;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -11,9 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +63,6 @@ public class OrderDetailsController {
     @FXML
     private Label orderDetailTotalLabel;
 
-
     /*
      * Temporary in-memory order information.
      *
@@ -70,16 +71,13 @@ public class OrderDetailsController {
      * Replace these separate fields with an Order model loaded
      * through OrderService.
      */
-    private String orderNumber;
-    private LocalDate orderDate;
-    private String orderStatus;
-    private String deliveryAddress;
-    private String deliveryMethod;
-
+    private OrderRepository orders;
+    private AddressRepository addresses;
+    private Order order;
+    private Address address;
     private double subtotal;
     private double tax;
     private double deliveryFee;
-    private double total;
 
     private final List<CartItem> orderItems =
             new ArrayList<>();
@@ -140,27 +138,19 @@ public class OrderDetailsController {
      * which obtains a complete Order through OrderService.
      */
     public void setOrderDetails(
-            String orderNumber,
-            LocalDate orderDate,
-            String orderStatus,
+    		Order order,
+    		Address address,
             List<CartItem> items,
-            String deliveryAddress,
-            String deliveryMethod,
             double subtotal,
             double tax,
-            double deliveryFee,
-            double total
+            double deliveryFee
     ) {
-        this.orderNumber = orderNumber;
-        this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
-        this.deliveryAddress = deliveryAddress;
-        this.deliveryMethod = deliveryMethod;
+    	this.order = order;
+    	this.address = address;
 
         this.subtotal = subtotal;
         this.tax = tax;
         this.deliveryFee = deliveryFee;
-        this.total = total;
 
         orderItems.clear();
 
@@ -179,24 +169,20 @@ public class OrderDetailsController {
 
     private void displayOrderDetails() {
         orderNumberLabel.setText(
-                "Order " + safeText(orderNumber)
+                "Order " + order.getOrderId()
         );
 
-        if (orderDate == null) {
+        if (order.getDate() == null) {
             orderDateLabel.setText("");
         } else {
             orderDateLabel.setText(
                     "Order Date: "
-                            + orderDate.format(
-                            DateTimeFormatter.ofPattern(
-                                    "MMMM d, yyyy"
-                            )
-                    )
-            );
+                            + order.getDate()
+                    );
         }
 
         orderStatusLabel.setText(
-                "Status: " + safeText(orderStatus)
+                "Status: " + order.getStatus()
         );
 
         orderItemsTable.setItems(
@@ -208,11 +194,11 @@ public class OrderDetailsController {
         orderItemsTable.refresh();
 
         orderAddressLabel.setText(
-                safeText(deliveryAddress)
+                address.toString()
         );
 
         orderDeliveryMethodLabel.setText(
-                safeText(deliveryMethod)
+                order.getDeliveryType()
         );
 
         orderDetailSubtotalLabel.setText(
@@ -224,7 +210,7 @@ public class OrderDetailsController {
         );
 
         orderDetailTotalLabel.setText(
-                formatMoney(total)
+                formatMoney(order.getTotal())
         );
     }
 
@@ -274,6 +260,7 @@ public class OrderDetailsController {
          * OrderService should call OrderRepository. SQL must not
          * be placed in this controller.
          */
+    	order = orders.findById(orderId);
     }
 
     @FXML
@@ -282,16 +269,12 @@ public class OrderDetailsController {
     }
 
     public void clearOrderDetails() {
-        orderNumber = null;
-        orderDate = null;
-        orderStatus = null;
-        deliveryAddress = null;
-        deliveryMethod = null;
+        order = null;
+        address = null;
 
         subtotal = 0.0;
         tax = 0.0;
         deliveryFee = 0.0;
-        total = 0.0;
 
         orderItems.clear();
 
@@ -314,8 +297,9 @@ public class OrderDetailsController {
     }
 
 
-    private String safeText(String value) {
-        return value == null ? "" : value;
+    private String safeText(int orderNumber2) {
+        //return orderNumber2 == null ? "" : orderNumber2;
+    	return null;
     }
 
     private String formatMoney(double amount) {
@@ -323,8 +307,8 @@ public class OrderDetailsController {
     }
 
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public int getOrderNumber() {
+        return order.getOrderId();
     }
 
     public double getDeliveryFee() {
@@ -332,7 +316,7 @@ public class OrderDetailsController {
     }
 
     public double getTotal() {
-        return total;
+        return order.getTotal();
     }
 
 }

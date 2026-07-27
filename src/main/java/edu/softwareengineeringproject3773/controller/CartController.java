@@ -465,7 +465,6 @@ public class CartController {
 
         cartTable.refresh();
         refreshSummary();
-
         boolean cartIsEmpty = cart.isEmpty();
 
         checkoutButton.setDisable(cartIsEmpty);
