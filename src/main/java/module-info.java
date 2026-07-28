@@ -8,6 +8,15 @@ module edu.softwareengineeringprojectcs3773 {
     opens edu.softwareengineeringprojectcs3773 to javafx.fxml;
     opens edu.softwareengineeringproject3773.controller to javafx.fxml;
 
+    opens edu.softwareengineeringprojectcs3773.service
+            to org.junit.platform.commons;
+
+    opens edu.softwareengineeringprojectcs3773.repository
+            to org.junit.platform.commons;
+
+    opens edu.softwareengineeringprojectcs3773.database
+            to org.junit.platform.commons, javafx.fxml;
+
     exports edu.softwareengineeringprojectcs3773;
     exports edu.softwareengineeringprojectcs3773.database;
 }

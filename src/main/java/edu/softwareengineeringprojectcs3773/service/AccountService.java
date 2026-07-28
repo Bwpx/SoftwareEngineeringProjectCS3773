@@ -11,13 +11,21 @@ public class AccountService {
     }
 
     public boolean registerAccount(
-            String username,
             String firstName,
             String lastName,
+            String username,
             String email,
             String password,
             String phoneNumber
     ) {
+        if (firstName == null || firstName.isBlank()) {
+            return false;
+        }
+
+        if (lastName == null || lastName.isBlank()) {
+            return false;
+        }
+
         if (username == null || username.isBlank()) {
             return false;
         }
@@ -30,6 +38,8 @@ public class AccountService {
             return false;
         }
 
+        firstName = firstName.trim();
+        lastName = lastName.trim();
         username = username.trim();
         email = email.trim();
 
@@ -43,15 +53,32 @@ public class AccountService {
 
         Account newAccount = new Account(
                 0,
-                username,
                 firstName,
                 lastName,
+                username,
                 email,
                 password,
                 phoneNumber
         );
 
         return accountRepository.save(newAccount) != null;
+    }
+
+    // Keeps older code compatible.
+    public boolean registerAccount(
+            String username,
+            String email,
+            String password,
+            String phoneNumber
+    ) {
+        return registerAccount(
+                "",
+                "",
+                username,
+                email,
+                password,
+                phoneNumber
+        );
     }
 
     public Account login(String email, String password) {
