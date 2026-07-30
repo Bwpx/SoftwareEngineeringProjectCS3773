@@ -40,7 +40,7 @@ public class OrderConfirmationController {
     private Order order;
     private Address address;
     private String confirmationEmail;
-    private List<CartItem> orderItems = new ArrayList<>();;
+    private List<CartItem> orderItems = new ArrayList<>();
     private double subtotal;
     private double tax;
     private double deliveryFee;
